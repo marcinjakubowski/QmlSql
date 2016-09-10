@@ -35,8 +35,8 @@ DISTFILES = qmldir
     PRE_TARGETDEPS += $$copy_qmldir.target
 }
 
-    qmldir.files = qmldir
-    installPath = $$OUT_PWD/$$replace(uri, \\., /)
-    qmldir.path = $$installPath
-    target.path = $$installPath
-    INSTALLS += target qmldir
+qmldir.files = qmldir
+installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
+qmldir.path = $$installPath
+target.path = $$installPath
+INSTALLS += target qmldir
