@@ -54,11 +54,15 @@ public:
 
 
     Q_INVOKABLE void addDataBase();
-    Q_INVOKABLE void removeDatabase(const QString &connectionName);
     Q_INVOKABLE QStringList connectionNames();
-    Q_INVOKABLE void connect();
-    Q_INVOKABLE void closeConnection(const QString connectionName);
-    Q_INVOKABLE void closeAllConnections();
+
+
+    //FIXME make these later
+    // have to comment out for windows as it can not take a void function ! fucking doz
+    //    Q_INVOKABLE void removeDatabase(const QString &connectionName);
+    //    Q_INVOKABLE void connect();
+    //    Q_INVOKABLE void closeConnection(const QString connectionName);
+    //    Q_INVOKABLE void closeAllConnections();
     Q_INVOKABLE bool running();
 
 
