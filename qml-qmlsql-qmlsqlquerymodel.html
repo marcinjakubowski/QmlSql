@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qmlsqlquerymodel.cpp -->
+  <title>QmlSqlQueryModel QML Type | QmlSql 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    window.onload = function(){document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");};
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#methods">Methods</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">QmlSqlQueryModel QML Type</h1>
+<span class="subtitle"></span>
+<!-- $$$QmlSqlQueryModel-brief -->
+<p>The <a href="qml-qmlsql-qmlsqlquerymodel.html">QmlSqlQueryModel</a> object provides a read-only data model for SQL result sets. <a href="#details">More...</a></p>
+<!-- @@@QmlSqlQueryModel -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import QmlSql 1.0</td></tr></table></div><ul>
+<li><a href="qml-qmlsql-qmlsqlquerymodel-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlquerymodel.html#connectionName-prop">connectionName</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlquerymodel.html#errorString-prop">errorString</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlquerymodel.html#queryString-prop">queryString</a></b></b> : string</li>
+</ul>
+<a name="methods"></a>
+<h2 id="methods">Methods</h2>
+<ul>
+<li class="fn">void <b><b><a href="qml-qmlsql-qmlsqlquerymodel.html#exec-method">exec</a></b></b>()</li>
+</ul>
+<!-- $$$QmlSqlQueryModel-description -->
+<a name="details"></a>
+<h2 id="details">Detailed Description</h2>
+</p>
+<p><b>Note:</b> When you destroy your object this also destroys the the instance of <a href="qml-qmlsql-qmlsqlquerymodel.html">QmlSqlQueryModel</a>, thus everytime it gets recreated. Some people may wish to put this object in a qml file that never gets destoryed till the application is destroyed.</p>
+<p><a href="qml-qmlsql-qmlsqlquerymodel.html">QmlSqlQueryModel</a> is a high-level interface for executing SQL statements and traversing the result set. It is built on top of the lower-level QSqlQuery and can be used to provide data to views such as ListView. For example Say that we have a <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> open with te <a href="qml-qmlsql-qmlsqlquerymodel.html#connectionName-prop">connectionName</a> of &quot;master-connection&quot;</p>
+<pre class="cpp">
+
+  ListView{
+      model: sqlModel
+  }
+  QmlSqlQueryModel{
+      id: sqlModel
+      connectionName: <span class="string">&quot;master-connection&quot;</span>
+      queryString: <span class="string">&quot;SELECT name, salary FROM employee&quot;</span>
+      Component<span class="operator">.</span>onCompleted:{
+          exec()
+      }
+  }
+
+</pre>
+<p>The model is read-only by default. To make it writable you can use QmlSqlQuery but in the near future there will be a option to set it as writable.</p>
+<p>The querymodel example illustrates how to use <a href="qml-qmlsql-qmlsqlquerymodel.html">QmlSqlQueryModel</a> to display the result of a query.</p>
+<!-- @@@QmlSqlQueryModel -->
+<h2>Property Documentation</h2>
+<!-- $$$connectionName -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="connectionName-prop">
+<td class="tblQmlPropNode"><p>
+<a name="connectionName-prop"></a><span class="name">connectionName</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Set the connectionName to connectionName. This is used on a open <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a>,</p>
+</div></div><!-- @@@connectionName -->
+<br/>
+<!-- $$$errorString -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="errorString-prop">
+<td class="tblQmlPropNode"><p>
+<a name="errorString-prop"></a><span class="name">errorString</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Returns information about the last error that occurred on the database.</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlquerymodel.html#exec-method">exec()</a>.</p>
+</div></div><!-- @@@errorString -->
+<br/>
+<!-- $$$queryString -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="queryString-prop">
+<td class="tblQmlPropNode"><p>
+<a name="queryString-prop"></a><span class="name">queryString</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Resets the model and sets the data provider to be the given query.</p>
+<p><a href="qml-qmlsql-qmlsqlquerymodel.html#errorString-prop">errorString</a> can be used to retrieve verbose information if there was an error setting the query.</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlquerymodel.html#errorString-prop">errorString</a>.</p>
+</div></div><!-- @@@queryString -->
+<br/>
+<h2>Method Documentation</h2>
+<!-- $$$exec -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="exec-method">
+<td class="tblQmlFuncNode"><p>
+<a name="exec-method"></a><span class="type">void</span> <span class="name">exec</span>()</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Fills or refils the model based on the <a href="qml-qmlsql-qmlsqlquerymodel.html#queryString-prop">queryString</a> that one sets. If there is a error one can use <a href="qml-qmlsql-qmlsqlquerymodel.html#errorString-prop">errorString</a> or its signal onErrorStringChaned to gather information about that error</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlquerymodel.html#queryString-prop">queryString</a> and <a href="qml-qmlsql-qmlsqlquerymodel.html#errorString-prop">errorString</a>.</p>
+</div></div><!-- @@@exec -->
+<br/>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2016 Joseph Mills.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qqmlsqlquery.cpp -->
+  <title>QQmlSqlQuery QML Type | QmlSql 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    window.onload = function(){document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");};
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#methods">Methods</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">QQmlSqlQuery QML Type</h1>
+<span class="subtitle"></span>
+<!-- $$$QQmlSqlQuery-brief -->
+<p>The QmlSqlQuery class provides a means of executing and manipulating SQL statements. <a href="#details">More...</a></p>
+<!-- @@@QQmlSqlQuery -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import QmlSql 1.0</td></tr></table></div><ul>
+<li><a href="qml-qmlsql-qqmlsqlquery-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-qmlsql-qqmlsqlquery.html#connectionName-prop">connectionName</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qqmlsqlquery.html#errorString-prop">errorString</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qqmlsqlquery.html#lastQuery-prop">lastQuery</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qqmlsqlquery.html#lastQueryOutPut-prop">lastQueryOutPut</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qqmlsqlquery.html#queryString-prop">queryString</a></b></b> : string</li>
+</ul>
+<a name="methods"></a>
+<h2 id="methods">Methods</h2>
+<ul>
+<li class="fn">void <b><b><a href="qml-qmlsql-qqmlsqlquery.html#exec-method">exec</a></b></b>()</li>
+<li class="fn">void <b><b><a href="qml-qmlsql-qqmlsqlquery.html#execWithQuery-method">execWithQuery</a></b></b>(string <i>string</i>)</li>
+</ul>
+<!-- $$$QQmlSqlQuery-description -->
+<a name="details"></a>
+<h2 id="details">Detailed Description</h2>
+</p>
+<p>QmlSqlQuery encapsulates the functionality involved in creating, navigating and retrieving data from SQL queries which are executed on a <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a>. It can be used to execute DML (data manipulation language) statements, such as SELECT, INSERT, UPDATE and DELETE, as well as DDL (data definition language) statements, such as CREATE TABLE. It can also be used to execute database-specific commands which are not standard SQL (e.g&#x2e; SET DATESTYLE=ISO for PostgreSQL).</p>
+<p>Example: say that you have a <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> with the connecionName of &quot;master-connection&quot;</p>
+<pre class="cpp">
+
+  QmlSqlQuery{
+      connectionName: <span class="string">&quot;master-connection&quot;</span>
+      queryString: <span class="string">&quot;SELECT * FROM SOMETABLE&quot;</span>
+      onDone: {
+          console<span class="operator">.</span>log(lastQueryOutPut)
+      }
+  }
+
+</pre>
+<p><b>Warning:</b> You must load the SQL driver and open the connection before a QmlSqlQuery is created. Also, the connection must remain open while the query exists; otherwise, the behavior of QmlSqlQuery is undefined.</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> and <a href="qml-qmlsql-qmlsqlquerymodel.html">QmlSqlQueryModel</a>.</p>
+<!-- @@@QQmlSqlQuery -->
+<h2>Property Documentation</h2>
+<!-- $$$connectionName -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="connectionName-prop">
+<td class="tblQmlPropNode"><p>
+<a name="connectionName-prop"></a><span class="name">connectionName</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Sets up the connectionName to match that of the <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a>. It is highly suggested that one uses the connection name.</p>
+</div></div><!-- @@@connectionName -->
+<br/>
+<!-- $$$errorString -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="errorString-prop">
+<td class="tblQmlPropNode"><p>
+<a name="errorString-prop"></a><span class="name">errorString</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Returns error information about the last error (if any) that occurred with this query.</p>
+</div></div><!-- @@@errorString -->
+<br/>
+<!-- $$$lastQuery -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="lastQuery-prop">
+<td class="tblQmlPropNode"><p>
+<a name="lastQuery-prop"></a><span class="name">lastQuery</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Returns the text of the current query being used, or an empty string if there is no current query text.</p>
+</div></div><!-- @@@lastQuery -->
+<br/>
+<!-- $$$lastQueryOutPut -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="lastQueryOutPut-prop">
+<td class="tblQmlPropNode"><p>
+<a name="lastQueryOutPut-prop"></a><span class="name">lastQueryOutPut</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Returns the text from the last query that was ran. If there was a error one can use <a href="qml-qmlsql-qqmlsqlquery.html#errorString-prop">errorString</a> to retrive more information about the error,</p>
+<p><b>See also </b><a href="qml-qmlsql-qqmlsqlquery.html#errorString-prop">errorString</a>.</p>
+</div></div><!-- @@@lastQueryOutPut -->
+<br/>
+<!-- $$$queryString -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="queryString-prop">
+<td class="tblQmlPropNode"><p>
+<a name="queryString-prop"></a><span class="name">queryString</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Sets the query to queryString that will be run on the connected <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a>. It is highly suggested to use a <a href="qml-qmlsql-qqmlsqlquery.html#connectionName-prop">connectionName</a> when running a query,</p>
+<p><b>See also </b><a href="qml-qmlsql-qqmlsqlquery.html#connectionName-prop">connectionName</a> and <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a>.</p>
+</div></div><!-- @@@queryString -->
+<br/>
+<h2>Method Documentation</h2>
+<!-- $$$exec -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="exec-method">
+<td class="tblQmlFuncNode"><p>
+<a name="exec-method"></a><span class="type">void</span> <span class="name">exec</span>()</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Executes a previously prepared SQL query.</p>
+<p>Note that the last error for this query is not reset when exec() is called.</p>
+</div></div><!-- @@@exec -->
+<br/>
+<!-- $$$execWithQuery -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="execWithQuery-method">
+<td class="tblQmlFuncNode"><p>
+<a name="execWithQuery-method"></a><span class="type">void</span> <span class="name">execWithQuery</span>(<span class="type">string</span> <i>string</i>)</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Method that is used to execute SQL query. This method takes in two strings the first one being the <a href="qml-qmlsql-qqmlsqlquery.html#connectionName-prop">connectionName</a> and the second one being the SQL query string that you wish to run.</p>
+<p>Note that the last error for this query is not reset when <a href="qml-qmlsql-qqmlsqlquery.html#exec-method">exec()</a> is called.</p>
+</div></div><!-- @@@execWithQuery -->
+<br/>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2016 Joseph Mills.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>org.qmlsql.100</namespace>
+    <virtualFolder>qmlsql</virtualFolder>
+    <filterSection>
+        <toc>
+            <section ref="index.html" title="qmlsql">
+                <section ref="" title="QML Types"/>
+                <section ref="" title="Examples">
+                    <section ref="qmlsql-query-example.html" title="QmlSql - Query a database and get results back in a string"/>
+                    <section ref="qmlsql-models-example.html" title="QmlSqlQueryModel - Create models with SQL Query's"/>
+                </section>
+            </section>
+        </toc>
+        <keywords>
+            <keyword name="QmlSqlQueryModel" id="QML.QmlSqlQueryModel" ref="qml-qmlsql-qmlsqlquerymodel.html"/>
+            <keyword name="queryString" id="QmlSqlQueryModel::queryString" ref="qml-qmlsql-qmlsqlquerymodel.html#queryString-prop"/>
+            <keyword name="errorString" id="QmlSqlQueryModel::errorString" ref="qml-qmlsql-qmlsqlquerymodel.html#errorString-prop"/>
+            <keyword name="exec" id="QmlSqlQueryModel::exec" ref="qml-qmlsql-qmlsqlquerymodel.html#exec-method"/>
+            <keyword name="connectionName" id="QmlSqlQueryModel::connectionName" ref="qml-qmlsql-qmlsqlquerymodel.html#connectionName-prop"/>
+            <keyword name="QmlSql" id="QmlSql" ref="qmlsql-qmlmodule.html"/>
+            <keyword name="QmlSqlQueryModel - Create models with SQL Query's" id="QmlSqlQueryModel - Create models with SQL Query's" ref="qmlsql-models-example.html"/>
+            <keyword name="QmlSqlCreateDatabase" id="QML.QmlSqlCreateDatabase" ref="qml-qmlsql-qmlsqlcreatedatabase.html"/>
+            <keyword name="filePath" id="QmlSqlCreateDatabase::filePath" ref="qml-qmlsql-qmlsqlcreatedatabase.html#filePath-prop"/>
+            <keyword name="databaseName" id="QmlSqlCreateDatabase::databaseName" ref="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop"/>
+            <keyword name="lastCreatedDatabaseFile" id="QmlSqlCreateDatabase::lastCreatedDatabaseFile" ref="qml-qmlsql-qmlsqlcreatedatabase.html#lastCreatedDatabaseFile-prop"/>
+            <keyword name="fileName" id="QmlSqlCreateDatabase::fileName" ref="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop"/>
+            <keyword name="useMd5" id="QmlSqlCreateDatabase::useMd5" ref="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop"/>
+            <keyword name="errorString" id="QmlSqlCreateDatabase::errorString" ref="qml-qmlsql-qmlsqlcreatedatabase.html#errorString-prop"/>
+            <keyword name="exec" id="QmlSqlCreateDatabase::exec" ref="qml-qmlsql-qmlsqlcreatedatabase.html#exec-method"/>
+            <keyword name="QmlSql - Query a database and get results back in a string" id="QmlSql - Query a database and get results back in a string" ref="qmlsql-query-example.html"/>
+            <keyword name="QQmlSqlQuery" id="QML.QQmlSqlQuery" ref="qml-qmlsql-qqmlsqlquery.html"/>
+            <keyword name="connectionName" id="QQmlSqlQuery::connectionName" ref="qml-qmlsql-qqmlsqlquery.html#connectionName-prop"/>
+            <keyword name="execWithQuery" id="QQmlSqlQuery::execWithQuery" ref="qml-qmlsql-qqmlsqlquery.html#execWithQuery-method"/>
+            <keyword name="queryString" id="QQmlSqlQuery::queryString" ref="qml-qmlsql-qqmlsqlquery.html#queryString-prop"/>
+            <keyword name="lastQuery" id="QQmlSqlQuery::lastQuery" ref="qml-qmlsql-qqmlsqlquery.html#lastQuery-prop"/>
+            <keyword name="exec" id="QQmlSqlQuery::exec" ref="qml-qmlsql-qqmlsqlquery.html#exec-method"/>
+            <keyword name="lastQueryOutPut" id="QQmlSqlQuery::lastQueryOutPut" ref="qml-qmlsql-qqmlsqlquery.html#lastQueryOutPut-prop"/>
+            <keyword name="errorString" id="QQmlSqlQuery::errorString" ref="qml-qmlsql-qqmlsqlquery.html#errorString-prop"/>
+            <keyword name="QmlSqlDatabase" id="QML.QmlSqlDatabase" ref="qml-qmlsql-qmlsqldatabase.html"/>
+            <keyword name="addDataBase" id="QmlSqlDatabase::addDataBase" ref="qml-qmlsql-qmlsqldatabase.html#addDataBase-method"/>
+            <keyword name="databaseDriver" id="QmlSqlDatabase::databaseDriver" ref="qml-qmlsql-qmlsqldatabase.html#databaseDriver-prop"/>
+            <keyword name="databaseName" id="QmlSqlDatabase::databaseName" ref="qml-qmlsql-qmlsqldatabase.html#databaseName-prop"/>
+            <keyword name="databaseDriverList" id="QmlSqlDatabase::databaseDriverList" ref="qml-qmlsql-qmlsqldatabase.html#databaseDriverList-prop"/>
+            <keyword name="running" id="QmlSqlDatabase::running" ref="qml-qmlsql-qmlsqldatabase.html#running-prop"/>
+            <keyword name="errorString" id="QmlSqlDatabase::errorString" ref="qml-qmlsql-qmlsqldatabase.html#errorString-prop"/>
+            <keyword name="user" id="QmlSqlDatabase::user" ref="qml-qmlsql-qmlsqldatabase.html#user-prop"/>
+            <keyword name="connectionName" id="QmlSqlDatabase::connectionName" ref="qml-qmlsql-qmlsqldatabase.html#connectionName-prop"/>
+            <keyword name="source" id="QmlSqlDatabase::source" ref="qml-qmlsql-qmlsqldatabase.html#source-prop"/>
+            <keyword name="password" id="QmlSqlDatabase::password" ref="qml-qmlsql-qmlsqldatabase.html#password-prop"/>
+            <keyword name="port" id="QmlSqlDatabase::port" ref="qml-qmlsql-qmlsqldatabase.html#port-prop"/>
+            <keyword name="connectionNames" id="QmlSqlDatabase::connectionNames" ref="qml-qmlsql-qmlsqldatabase.html#connectionNames-prop"/>
+        </keywords>
+        <files>
+            <file>images/ico_note.png</file>
+            <file>qmlsql-qmlmodule.html</file>
+            <file>images/arrow_bc.png</file>
+            <file>qmlsql-query-main-cpp.html</file>
+            <file>qml-qmlsql-qmlsqldatabase.html</file>
+            <file>style/offline.css</file>
+            <file>qml-qmlsql-qmlsqlquerymodel.html</file>
+            <file>images/bullet_sq.png</file>
+            <file>images/logo.png</file>
+            <file>qmlsql-models-main-cpp.html</file>
+            <file>style/offline-simple.css</file>
+            <file>qml-qmlsql-qqmlsqlquery-members.html</file>
+            <file>qmlsql-query-qml-qrc.html</file>
+            <file>qmlsql-models-example.html</file>
+            <file>qmlsql-query-query-pro.html</file>
+            <file>images/home.png</file>
+            <file>images/ico_out.png</file>
+            <file>qmlsql-models-models-qmlproject.html</file>
+            <file>qmlsql-models-qml-qrc.html</file>
+            <file>qml-qmlsql-qmlsqlcreatedatabase.html</file>
+            <file>qml-qmlsql-qmlsqldatabase-members.html</file>
+            <file>qml-qmlsql-qmlsqlquerymodel-members.html</file>
+            <file>images/qmlsql-example-query.png</file>
+            <file>images/bgrContent.png</file>
+            <file>qml-qmlsql-qmlsqlcreatedatabase-members.html</file>
+            <file>qml-qmlsql-qqmlsqlquery.html</file>
+            <file>images/qmlsql-example-model.png</file>
+            <file>qmlsql-models-models-pro.html</file>
+            <file>qmlsql-query-query-qmlproject.html</file>
+            <file>images/btn_prev.png</file>
+            <file>images/ico_note_attention.png</file>
+            <file>images/btn_next.png</file>
+            <file>qmlsql-query-example.html</file>
+            <file>images/bullet_dn.png</file>
+        </files>
+    </filterSection>
+</QtHelpProject>

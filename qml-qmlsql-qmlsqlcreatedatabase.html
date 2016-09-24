@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qmlsqlcreatedatabase.cpp -->
+  <title>QmlSqlCreateDatabase QML Type | QmlSql 1.0</title>
+  <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
+  <script type="text/javascript">
+    window.onload = function(){document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");};
+  </script>
+</head>
+<body>
+<div class="header" id="qtdocheader">
+  <div class="main">
+    <div class="main-rounded">
+      <div class="navigationbar">
+        <table><tr>
+        </tr></table>
+      </div>
+    </div>
+<div class="content">
+<div class="line">
+<div class="content mainContent">
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#methods">Methods</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">QmlSqlCreateDatabase QML Type</h1>
+<span class="subtitle"></span>
+<!-- $$$QmlSqlCreateDatabase-brief -->
+<p>Creates a local database for <b>sqlight ONLY</b>. One must set the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop">databaseName</a> and also the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#filePath-prop">filePath</a> in which they would like to save the database file. One can use a md5sum that is randomly generated to create the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop">databaseName</a>. Or if you like you can also name the database <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a>. The method of exec is what is used to create the database. <a href="#details">More...</a></p>
+<!-- @@@QmlSqlCreateDatabase -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import QmlSql 1.0</td></tr></table></div><ul>
+<li><a href="qml-qmlsql-qmlsqlcreatedatabase-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop">databaseName</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#errorString-prop">errorString</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#filePath-prop">filePath</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#lastCreatedDatabaseFile-prop">lastCreatedDatabaseFile</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a></b></b> : bool</li>
+</ul>
+<a name="methods"></a>
+<h2 id="methods">Methods</h2>
+<ul>
+<li class="fn">void <b><b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#exec-method">exec</a></b></b>()</li>
+</ul>
+<!-- $$$QmlSqlCreateDatabase-description -->
+<a name="details"></a>
+<h2 id="details">Detailed Description</h2>
+</p>
+<p>Example:</p>
+<pre class="cpp">
+
+  QmlSqlCreateDatabase{
+          id: mainCreateDatabase
+          fileName: <span class="string">&quot;SomeFileName&quot;</span>
+          databaseName: <span class="string">&quot;ANewDatabase&quot;</span>
+          filePath:  <span class="string">&quot;SomePath&quot;</span>
+          useMd5: <span class="keyword">false</span>
+          onCreated:{
+              <span class="comment">//do something</span>
+          }
+   }
+
+</pre>
+<!-- @@@QmlSqlCreateDatabase -->
+<h2>Property Documentation</h2>
+<!-- $$$databaseName -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="databaseName-prop">
+<td class="tblQmlPropNode"><p>
+<a name="databaseName-prop"></a><span class="name">databaseName</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>sets the name of the sqlight database</p>
+</div></div><!-- @@@databaseName -->
+<br/>
+<!-- $$$errorString -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="errorString-prop">
+<td class="tblQmlPropNode"><p>
+<a name="errorString-prop"></a><span class="name">errorString</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Returns a error string if there is a error in the creation of the database.</p>
+</div></div><!-- @@@errorString -->
+<br/>
+<!-- $$$fileName -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="fileName-prop">
+<td class="tblQmlPropNode"><p>
+<a name="fileName-prop"></a><span class="name">fileName</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Sets the file name of the sqlight database</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a>.</p>
+</div></div><!-- @@@fileName -->
+<br/>
+<!-- $$$filePath -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="filePath-prop">
+<td class="tblQmlPropNode"><p>
+<a name="filePath-prop"></a><span class="name">filePath</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Sets the path to where one would like to create the sqlight database</p>
+</div></div><!-- @@@filePath -->
+<br/>
+<!-- $$$lastCreatedDatabaseFile -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="lastCreatedDatabaseFile-prop">
+<td class="tblQmlPropNode"><p>
+<a name="lastCreatedDatabaseFile-prop"></a><span class="name">lastCreatedDatabaseFile</span> : <span class="type">string</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>returns a string of the last sqlight database that was created</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a>.</p>
+</div></div><!-- @@@lastCreatedDatabaseFile -->
+<br/>
+<!-- $$$useMd5 -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="useMd5-prop">
+<td class="tblQmlPropNode"><p>
+<a name="useMd5-prop"></a><span class="name">useMd5</span> : <span class="type">bool</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Sets this to true if you would like the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> of the sqlight database to be a randomly gentorated md5 sum. One can not use both fileNmae and use this feature.</p>
+<p><b>see also</b> : <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a></p>
+</div></div><!-- @@@useMd5 -->
+<br/>
+<h2>Method Documentation</h2>
+<!-- $$$exec -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="exec-method">
+<td class="tblQmlFuncNode"><p>
+<a name="exec-method"></a><span class="type">void</span> <span class="name">exec</span>()</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>A method that is run to create the database. Returns a error if it can not complete the method. If one is using a md5 it creates the filename based on the random md5 that is generated in this method</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a>.</p>
+</div></div><!-- @@@exec -->
+<br/>
+        </div>
+       </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <p>
+   <acronym title="Copyright">&copy;</acronym> 2016 Joseph Mills.
+   Documentation contributions included herein are the copyrights of
+   their respective owners.<br>    The documentation provided herein is licensed under the terms of the    <a href="http://www.gnu.org/licenses/fdl.html">GNU Free Documentation    License version 1.3</a> as published by the Free Software Foundation.<br>    </p>
+</div>
+</body>
+</html>
