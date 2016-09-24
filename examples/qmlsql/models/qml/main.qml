@@ -8,22 +8,25 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Qml Sql Model Example")
+    title: qsTr("QmlSqlQueryModel Model Example")
 
     ListView{
         anchors.fill: parent
         model:queryModel
         delegate: Button{
-            // say I have a db and a column is called name like so
+            width: parent.width / 1.07
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            // say I have a database and columns named like so
 
             // -----------------------
             // | id | name | address |
             // _______________________
             // | 0  | joe  | 123 lane|
 
-            // the model will know all the columns
+            // the model will know all the columns and set the role names
 
-            text: name
+            text: name + " address = " + address
 
         }
 
@@ -34,7 +37,7 @@ Window {
 
     QmlSqlQueryModel{
         id: queryModel
-        // Set the connection name to the qml-sql-database
+        // Set the connection name to the QmlSqlDatabase
         connectionName: "mainConnection"
         // Use a query string to fill the model
         queryString: "SELECT * FROM SOMETABLE"

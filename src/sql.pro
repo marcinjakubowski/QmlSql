@@ -1,3 +1,9 @@
+ios{
+    CXX_MODULE=qml
+    QMAKE_MOC_OPTIONS += -Muri=QmlSql
+    CONFIG += static
+}
+
 TEMPLATE = lib
 TARGET = QmlSql
 QT += qml quick sql network
@@ -13,8 +19,6 @@ SOURCES += \
     qqmlsqlquery.cpp \
     qmlsqlquerymodel.cpp \
     qmlsqlcreatedatabase.cpp
-#    qmlsqltablemode.cpp \
-#    qmlsqltablehelper.cpp
 
 HEADERS += \
     plugin.h \
@@ -22,8 +26,7 @@ HEADERS += \
     qqmlsqlquery.h \
     qmlsqlquerymodel.h \
     qmlsqlcreatedatabase.h
-#    qmlsqltablemode.h \
-#    qmlsqltablehelper.h
+
 
 DISTFILES = qmldir
 

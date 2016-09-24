@@ -1,5 +1,37 @@
 #include "qmlsqlcreatedatabase.h"
 
+
+
+/*!
+   \qmltype QmlSqlCreateDatabase
+   \inqmlmodule QmlSql 1.0
+   \ingroup QmlSql
+   \inherits QObject
+   \brief  Creates a local database for \b{sqlight ONLY}. One must set the databaseName and also the filePath in which they would like to save
+    the database file. One can use a md5sum that is randomly generated to create the databaseName. Or if you like you can also
+    name the database fileName. The method of exec is what is used to create the database.
+
+    Example:
+
+   \code
+    QmlSqlCreateDatabase{
+            id: mainCreateDatabase
+            fileName: "SomeFileName"
+            databaseName: "ANewDatabase"
+            filePath:  "SomePath"
+            useMd5: false
+            onCreated:{
+                //do something
+            }
+     }
+
+   \endcode
+ */
+
+
+
+
+
 QmlSqlCreateDatabase::QmlSqlCreateDatabase(QObject *parent) :
     QObject(parent),
     m_databaseName("NULL")
@@ -7,10 +39,17 @@ QmlSqlCreateDatabase::QmlSqlCreateDatabase(QObject *parent) :
     connect(this,SIGNAL(error(QString)), this,SLOT(handelError(QString)));
 }
 
+
+/*!
+ \qmlproperty string QmlSqlCreateDatabase::filePath
+ Sets the path to where one would like to create the sqlight database
+
+*/
 QString QmlSqlCreateDatabase::filePath() const
 {
     return m_filePath;
 }
+
 
 void QmlSqlCreateDatabase::setFilePath(const QString &filePath)
 {
@@ -19,12 +58,21 @@ void QmlSqlCreateDatabase::setFilePath(const QString &filePath)
     m_filePath = filePath ;
     emit filePathChanged();
 }
+/*!
+ \qmlproperty string QmlSqlCreateDatabase::fileName
+  Sets the file name of the sqlight database
 
+  \sa useMd5
+ */
 QString QmlSqlCreateDatabase::fileName() const
 {
     return m_fileName;
 }
 
+/*!
+ \brief void QmlSqlCreateDatabase::setFileName(const QString &fileName)
+ Setter that is used from Qml to set the fileName of the sqlight database. This emits a signal if the fileNmae has changed.
+*/
 void QmlSqlCreateDatabase::setFileName(const QString &fileName)
 {
     if ( m_fileName == fileName )
@@ -33,11 +81,22 @@ void QmlSqlCreateDatabase::setFileName(const QString &fileName)
     emit fileNameChanged();
 }
 
+/*!
+ \qmlproperty bool QmlSqlCreateDatabase::useMd5
+    Sets this to true if you would like the fileName of the sqlight database to be a randomly gentorated md5 sum.
+    One can not use both fileNmae and use this feature.
+
+    \b{see also} : fileName
+ */
 bool QmlSqlCreateDatabase::useMd5() const
 {
     return m_useMd5;
 }
 
+/*!
+  \brief void QmlSqlCreateDatabase::setUseMd5(const bool &useMd5)
+   This is used to to tell the method of exec to name the file of the sqlight database as a radom md5sum .
+*/
 void QmlSqlCreateDatabase::setUseMd5(const bool &useMd5)
 {
     if ( m_useMd5 == useMd5 )
@@ -46,11 +105,20 @@ void QmlSqlCreateDatabase::setUseMd5(const bool &useMd5)
     emit useMd5Changed();
 }
 
+
+/*!
+  \qmlproperty string QmlSqlCreateDatabase::databaseName
+    sets the name of the sqlight database
+ */
 QString QmlSqlCreateDatabase::databaseName() const
 {
     return m_databaseName;
 }
 
+/*!
+ \brief void QmlSqlCreateDatabase::setDatabaseName(const QString &databaseName)
+ Sets the sqlight database name to what the user passed in from qml.  Emits a signal if the databaseName changes.
+ */
 void QmlSqlCreateDatabase::setDatabaseName(const QString &databaseName)
 {
     if ( m_databaseName == databaseName )
@@ -59,16 +127,32 @@ void QmlSqlCreateDatabase::setDatabaseName(const QString &databaseName)
     emit databaseNameChanged();
 }
 
+
+/*!
+  \qmlproperty string QmlSqlCreateDatabase::errorString
+    Returns a error string if there is a error in the creation of the database.
+ */
 QString QmlSqlCreateDatabase::errorString()
 {
     return m_errorString;
 }
 
+/*!
+  \qmlproperty string QmlSqlCreateDatabase::lastCreatedDatabaseFile
+  returns a string of the last sqlight database that was created
+
+  \sa useMd5
+ */
 QString QmlSqlCreateDatabase::lastCreatedDatabaseFile() const
 {
     return m_lastCreatedDatabaseFile;
 }
 
+
+/*!
+ \brief void QmlSqlCreateDatabase::setLastCreatedDatabaseFile(const QString lastCreatedDatabaseFile)
+   Sets the last created datbase file name.  This is handy if you are using this class to create multi[ple sqlight database and would like to check the last database that was created.
+*/
 void QmlSqlCreateDatabase::setLastCreatedDatabaseFile(const QString lastCreatedDatabaseFile)
 {
     if ( m_lastCreatedDatabaseFile == lastCreatedDatabaseFile )
@@ -77,6 +161,13 @@ void QmlSqlCreateDatabase::setLastCreatedDatabaseFile(const QString lastCreatedD
     emit lastCreatedDatabaseFileChanged();
 }
 
+/*!
+  \qmlmethod void QmlSqlCreateDatabase::exec()
+  A method that is run to create the database. Returns a error if it can not complete the method.
+  If one is using a md5 it creates the filename based on the random md5 that is generated in this method
+
+  \sa useMd5
+*/
 void QmlSqlCreateDatabase::exec()
 {
     QString dataDir = QStandardPaths::standardLocations(QStandardPaths::DataLocation).first() ;
@@ -221,9 +312,14 @@ void QmlSqlCreateDatabase::exec()
 
 
 
+/*!
+ \brief QString QmlSqlCreateDatabase::generateMd5Sum(const QString &databaseName)
 
+ Returns a string md5sum that is used in the exec method if the property of use useMd5 is set to true in the QML code.
+ */
 QString QmlSqlCreateDatabase::generateMd5Sum(const QString &databaseName)
 {
+
     QCryptographicHash md5(QCryptographicHash::Md5);
     // make the md5sum
     md5.addData(databaseName.toUtf8());
@@ -234,24 +330,32 @@ QString QmlSqlCreateDatabase::generateMd5Sum(const QString &databaseName)
 
 
 
+/*!
+ \brief QString QmlSqlCreateDatabase::getRandomString()
+ returns a randomly genorated QString from 12 charecters. The possible charecters are a-z upper and lower case and also 0-9
+ */
 QString QmlSqlCreateDatabase::getRandomString()
 {
     QString possibleCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-       int randomStringLength = 12;
+    int randomStringLength = 12;
 
-       qsrand(QTime::currentTime().msec());
+    qsrand(QTime::currentTime().msec());
 
-       QString rString;
-       for(int i=0; i<randomStringLength; ++i)
-       {
+    QString rString;
+    for(int i=0; i<randomStringLength; ++i)
+    {
 
-           int index = qrand() % possibleCharacters.length();
-           QChar nextChar = possibleCharacters.at(index);
-           rString.append(nextChar);
-       }
-       return rString;
+        int index = qrand() % possibleCharacters.length();
+        QChar nextChar = possibleCharacters.at(index);
+        rString.append(nextChar);
+    }
+    return rString;
 }
 
+/*!
+ \brief void QmlSqlCreateDatabase::handelError(const QString er)
+ slot that is used to handel the error string when there is a error in this class.
+ */
 void QmlSqlCreateDatabase::handelError(const QString er)
 {
     qDebug() << er ;

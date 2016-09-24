@@ -9,7 +9,7 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("QmlSqlQuery Example")
 
 
     Column{
@@ -33,6 +33,8 @@ Window {
         }
         Button{
             text:"Run Query"
+            width: parent.width / 1.07
+            anchors.horizontalCenter: parent.horizontalCenter
             onClicked: query.exec()
         }
 

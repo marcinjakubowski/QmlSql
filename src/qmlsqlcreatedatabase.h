@@ -12,6 +12,9 @@
 #include <QDebug>
 #include <QSqlDatabase>
 
+/*!
+ * \class The QmlSqlCreateDatabase class
+ */
 class QmlSqlCreateDatabase : public QObject
 {
     Q_OBJECT
@@ -26,6 +29,7 @@ public:
     explicit QmlSqlCreateDatabase(QObject *parent = 0);
 
     QString filePath() const;
+
     void setFilePath(const QString &filePath);
 
     QString fileName()const ;
