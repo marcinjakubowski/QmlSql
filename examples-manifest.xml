@@ -3,12 +3,12 @@
     <examples>
         <example name="QmlSql - Query a database and get results back in a string" docUrl="qthelp://org.qmlsql.100/qmlsql/qmlsql-query-example.html" projectPath="qmlsql/query/query.pro" imageUrl="qthelp://org.qmlsql.100/qmlsql/images/qmlsql-example-query.png">
             <description><![CDATA[a example of opening up a database and running a query from TextInput]]></description>
-            <tags>in,query,back,sql,qmlsql,string,get,database,qml,results</tags>
+            <tags>qml,back,results,query,sql,string,qmlsql,database,in,get</tags>
             <fileToOpen mainFile="true">qmlsql/query/main.cpp</fileToOpen>
         </example>
         <example name="QmlSqlQueryModel - Create models with SQL Query's" docUrl="qthelp://org.qmlsql.100/qmlsql/qmlsql-models-example.html" projectPath="qmlsql/models/models.pro" imageUrl="qthelp://org.qmlsql.100/qmlsql/images/qmlsql-example-model.png">
             <description><![CDATA[Set a model with a SQL query in QML]]></description>
-            <tags>models,sql,qmlsqlquerymodel,create,with,query's,qml</tags>
+            <tags>qml,with,sql,qmlsqlquerymodel,create,models,query's</tags>
             <fileToOpen mainFile="true">qmlsql/models/main.cpp</fileToOpen>
         </example>
     </examples>

@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- qml-qmlsql.qdoc -->
-  <title>QmlSql components | QmlSql 1.0</title>
+  <title>QmlSql Objects | QmlSql 1.0</title>
   <link rel="stylesheet" type="text/css" href="style/offline-simple.css" />
   <script type="text/javascript">
     window.onload = function(){document.getElementsByTagName("link").item(0).setAttribute("href", "style/offline.css");};
@@ -16,14 +16,14 @@
     <div class="main-rounded">
       <div class="navigationbar">
         <table><tr>
-<td >QmlSql components</td>        </tr></table>
+<td >QmlSql Objects</td>        </tr></table>
       </div>
     </div>
 <div class="content">
 <div class="line">
 <div class="content mainContent">
 <div class="sidebar"><div class="sidebar-content" id="sidebar-content"></div></div>
-<h1 class="title">QmlSql components</h1>
+<h1 class="title">QmlSql Objects</h1>
 <span class="subtitle"></span>
 <!-- $$$QmlSql-description -->
 <div class="descr"> <a name="details"></a>
@@ -48,13 +48,13 @@
   QT <span class="operator">+</span><span class="operator">=</span> sql
 
 </pre>
-<p>Below are the folling Objects that are available at this time for <a href="qmlsql-qmlmodule.html">QmlSql</a>.</p>
+<p>Below are the following objects that are available at this time for <a href="qmlsql-qmlmodule.html">QmlSql</a>.</p>
 </div>
 <!-- @@@QmlSql -->
 <div class="table"><table class="annotated">
 <tr class="odd topAlign"><td class="tblName"><p><a href="qml-qmlsql-qqmlsqlquery.html">QQmlSqlQuery</a></p></td><td class="tblDescr"><p>QmlSqlQuery class provides a means of executing and manipulating SQL statements</p></td></tr>
-<tr class="even topAlign"><td class="tblName"><p><a href="qml-qmlsql-qmlsqlcreatedatabase.html">QmlSqlCreateDatabase</a></p></td><td class="tblDescr"><p>Creates a local database for sqlight ONLY. One must set the databaseName and also the filePath in which they would like to save the database file. One can use a md5sum that is randomly generated to create the databaseName. Or if you like you can also name the database fileName. The method of exec is what is used to create the database</p></td></tr>
-<tr class="odd topAlign"><td class="tblName"><p><a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a></p></td><td class="tblDescr"><p>Represents a connection to a database. The QmlSqlDatabase provides an interface for accessing a database through a connection. An instance of QmlSqlDatabase represents the connection. The connection provides access to the database via one of the supported databaseDrivers, which are derived from QSqlDriver. Alternatively, you can subclass your own database driver from QSqlDriver. See How to Write Your Own Database Driver for more information. Create a connection (i.e&#x2e;, an instance of QSqlDatabase) by calling one of the static addDatabase() functions, where you specify the driver or type of driver to use (i.e&#x2e;, what kind of database will you access?) and a connection name. A connection is known by its own name, not by the name of the database it connects to. You can have multiple connections to one database. QSqlDatabase also supports the concept of a default connection, which is the unnamed connection. To create the default connection, don't pass the connection name argument when you call addDatabase(). Subsequently, when you call any static member function that takes the connection name argument, if you don't pass the connection name argument, the default connection is assumed. The following snippet shows how to create and open a default connection to a PostgreSQL database:</p></td></tr>
+<tr class="even topAlign"><td class="tblName"><p><a href="qml-qmlsql-qmlsqlcreatedatabase.html">QmlSqlCreateDatabase</a></p></td><td class="tblDescr"><p>Creates a local database for sqlight only. One must set the databaseName and also the filePath in which they would like to save the database file. One can use a md5Sum that is randomly generated to create the databaseName. Or if you like you can also name the database fileName via databaseName. The method of  is what is used to create the database</p></td></tr>
+<tr class="odd topAlign"><td class="tblName"><p><a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a></p></td><td class="tblDescr"><p>Represents a connection to a database. The QmlSqlDatabase provides an interface for accessing a database through a connection. An instance of QmlSqlDatabase represents the connection. The connection provides access to the database via one of the supported  , which are derived from . Alternatively, one can subclass your own database driver from . See How to Write Your Own Database Driver for more information. Create a connection (i.e&#x2e;, an instance of QSqlDatabase) by calling one of the method addDatabase() , where you specify the databaseDriver (i.e&#x2e;, what kind of database will you access) and a connectionName. A connection is known by its own name, Not by the name of the database it connects to. You can have multiple connections to one database. QSqlDatabase also supports the concept of a default connection (not recommended ), which is the unnamed connection. To create the default connection, don't pass the connection name argument before you call addDatabase(). Subsequently, when you call any method function that takes the connection name argument, if you don't pass the connectionName argument, the default connection is assumed. The following snippet shows how to create and open a default connection to a PostgreSQL database:</p></td></tr>
 <tr class="even topAlign"><td class="tblName"><p><a href="qml-qmlsql-qmlsqlquerymodel.html">QmlSqlQueryModel</a></p></td><td class="tblDescr"><p>Object provides a read-only data model for SQL result sets</p></td></tr>
 </table></div>
         </div>

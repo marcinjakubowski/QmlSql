@@ -35,7 +35,7 @@
 <h1 class="title">QmlSqlDatabase QML Type</h1>
 <span class="subtitle"></span>
 <!-- $$$QmlSqlDatabase-brief -->
-<p>The <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> class represents a connection to a database. The <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> provides an interface for accessing a database through a connection. An instance of <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> represents the connection. The connection provides access to the database via one of the supported databaseDrivers, which are derived from QSqlDriver. Alternatively, you can subclass your own database driver from QSqlDriver. See How to Write Your Own Database Driver for more information. Create a connection (i.e&#x2e;, an instance of QSqlDatabase) by calling one of the static addDatabase() functions, where you specify the driver or type of driver to use (i.e&#x2e;, what kind of database will you access?) and a connection name. A connection is known by its own name, not by the name of the database it connects to. You can have multiple connections to one database. QSqlDatabase also supports the concept of a default connection, which is the unnamed connection. To create the default connection, don't pass the connection name argument when you call addDatabase(). Subsequently, when you call any static member function that takes the connection name argument, if you don't pass the connection name argument, the default connection is assumed. The following snippet shows how to create and open a default connection to a PostgreSQL database: <a href="#details">More...</a></p>
+<p>The <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> class represents a connection to a database. The <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> provides an interface for accessing a database through a connection. An instance of <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> represents the connection. The connection provides access to the database via one of the supported <code>databaseDriver</code> , which are derived from <code>QSqlDriver (c++)</code>. Alternatively, one can subclass your own database driver from <code>QSqlDriver (c++)</code>. See How to Write Your Own Database Driver for more information. Create a connection (i.e&#x2e;, an instance of QSqlDatabase) by calling one of the method addDatabase() , where you specify the <a href="qml-qmlsql-qmlsqldatabase.html#databaseDriver-prop">databaseDriver</a> (i.e&#x2e;, what kind of database will you access) and a <a href="qml-qmlsql-qmlsqldatabase.html#connectionName-prop">connectionName</a>. A connection is known by its own name, Not by the name of the database it connects to. You can have <b>multiple connections to one database</b>. QSqlDatabase also supports the concept of a default connection (not recommended ), which is the unnamed connection. To create the default connection, don't pass the connection name argument before you call addDatabase(). Subsequently, when you call any method function that takes the connection name argument, if you don't pass the <a href="qml-qmlsql-qmlsqldatabase.html#connectionName-prop">connectionName</a> argument, the default connection is assumed. The following snippet shows how to create and open a default connection to a PostgreSQL database: <a href="#details">More...</a></p>
 <!-- @@@QmlSqlDatabase -->
 <div class="table"><table class="alignedsummary">
 <tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import QmlSql 1.0</td></tr></table></div><ul>
@@ -60,6 +60,8 @@
 <h2 id="methods">Methods</h2>
 <ul>
 <li class="fn"><b><b><a href="qml-qmlsql-qmlsqldatabase.html#addDataBase-method">addDataBase</a></b></b>()</li>
+<li class="fn"><b><b><a href="qml-qmlsql-qmlsqldatabase.html#removeDatabase-method">removeDatabase</a></b></b>()</li>
+<li class="fn">variant <b><b><a href="qml-qmlsql-qmlsqldatabase.html#tables-method">tables</a></b></b>(string <i>connectionName</i>)</li>
 </ul>
 <!-- $$$QmlSqlDatabase-description -->
 <a name="details"></a>
@@ -76,7 +78,7 @@
 
     databaseDriver: QmlSqlDatabase<span class="operator">.</span>QPSQL
     onOpen{
-    <span class="comment">//do something</span>
+        <span class="comment">//do something</span>
     }
     Componet<span class="operator">.</span>onCompleted:{
         db<span class="operator">.</span>addDatabase()
@@ -85,13 +87,14 @@
 
 </pre>
 <p>Once the <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> object has been created, set the connection parameters with <a href="qml-qmlsql-qmlsqldatabase.html#databaseName-prop">databaseName</a>, userName, password, hostName and port. Then call addDatabase() to activate the physical connection to the database. The connection is not usable until you open it. The connection defined above will be the default connection, because we didn't give a connection name to the object with the id of db.</p>
-<p>To Add a connection name just add</p>
+<p>To Add a <code>connectionName</code> just add</p>
 <pre class="cpp">
 
-  connecitonName: <span class="string">&quot;customdb-connection&quot;</span>
+  connectionName: <span class="string">&quot;customdb-connection&quot;</span>
 
 </pre>
 <p>It is a good idea to add a <a href="qml-qmlsql-qmlsqldatabase.html#connectionName-prop">connectionName</a> to the <a href="qml-qmlsql-qmlsqldatabase.html">QmlSqlDatabase</a> as that way one can use the other Objects that are in the <a href="qmlsql-qmlmodule.html">QmlSql</a> plugin to call over and over again from any page at any time.</p>
+<p>Example:</p>
 <pre class="cpp">
 
   QmlSqlQuery{
@@ -101,8 +104,8 @@
 
 </pre>
 <p>The code example above will connect to the database with the id of &quot;customdb-connection&quot; and one does not need to create Objects over and over again.</p>
-<p>If an error occurs, errorString() will return information about it. Get the names of the available SQL drivers with <a href="qml-qmlsql-qmlsqldatabase.html#databaseDriverList-prop">databaseDriverList</a>.</p>
-<p><b>Warning : </b> There are still some wrapping that needs to be done to this class and it is subject to change in the near future.Some of the things are close open check vaildadtion of Databasetypes ect.</p>
+<p>If an error occurs, <a href="qml-qmlsql-qmlsqldatabase.html#errorString-prop">errorString</a> will return information about it. Get the names of the available SQL drivers with <a href="qml-qmlsql-qmlsqldatabase.html#databaseDriverList-prop">databaseDriverList</a>.</p>
+<p><b>Warning : </b> There are still some wrapping that needs to be done to this class and it is subject to change in the near future. Some of the things are close open check validation of Database types ect.</p>
 <!-- @@@QmlSqlDatabase -->
 <h2>Property Documentation</h2>
 <!-- $$$connectionName -->
@@ -144,7 +147,7 @@
 <td class="tblQmlPropNode"><p>
 <a name="databaseDriverList-prop"></a><span class="name">databaseDriverList</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Returns a list of all the available database drivers</p>
+</div><div class="qmldoc"><p>Returns a list of all the available database drivers that one can use</p>
 </div></div><!-- @@@databaseDriverList -->
 <br/>
 <!-- $$$databaseName -->
@@ -154,9 +157,9 @@
 <td class="tblQmlPropNode"><p>
 <a name="databaseName-prop"></a><span class="name">databaseName</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Sets the connection's databaseName. To have effect, the databaseName must be set before the connection is opened.</p>
-<p><b>Note:</b> The databaseName is not the connection name. The <a href="qml-qmlsql-qmlsqldatabase.html#connectionName-prop">connectionName</a> must be added before addDatabase() is called.</p>
-<p>For the QOCI (Oracle) driver, the database name is the TNS Service Name.</p>
+</div><div class="qmldoc"><p>Sets the connection's <code>databaseName</code>. To have effect, the <code>databaseName</code> must be set before the connection is opened.</p>
+<p><b>Note:</b> The <code>databaseName</code> is not the <a href="qml-qmlsql-qmlsqldatabase.html#connectionName-prop">connectionName</a>. The <a href="qml-qmlsql-qmlsqldatabase.html#connectionName-prop">connectionName</a> must be added before addDatabase() method is called.</p>
+<p>For the QOCI (Oracle) driver, the <code>databaseName</code> is the TNS Service Name.</p>
 <p>There is no default value.</p>
 </div></div><!-- @@@databaseName -->
 <br/>
@@ -167,7 +170,7 @@
 <td class="tblQmlPropNode"><p>
 <a name="errorString-prop"></a><span class="name">errorString</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Returns information about the last error that occurred on the database. Failures that occur in conjunction with an individual query are reported by QmlSqlQuery::errorString.</p>
+</div><div class="qmldoc"><p>Returns information about the last error that occurred on the database.</p>
 </div></div><!-- @@@errorString -->
 <br/>
 <!-- $$$password -->
@@ -177,8 +180,9 @@
 <td class="tblQmlPropNode"><p>
 <a name="password-prop"></a><span class="name">password</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Sets the connection's password to password. To have effect, the password must be set before the connection is opened.</p>
+</div><div class="qmldoc"><p>Sets the connection's password to password. To have effect, The <code>password</code> must be set before the connection is opened.</p>
 <p>There is no default value.</p>
+<p><b>Warning:</b> This stores the password in plain text within Qt. Use the open() call that takes a password as parameter to avoid this behavior.</p>
 </div></div><!-- @@@password -->
 <br/>
 <!-- $$$port -->
@@ -188,7 +192,7 @@
 <td class="tblQmlPropNode"><p>
 <a name="port-prop"></a><span class="name">port</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Sets the connection's port number to port. To have effect, the port number must be set before the connection is opened.</p>
+</div><div class="qmldoc"><p>Sets the connection's port number to <code>port</code>. To have effect, the port number must be set before the connection is opened.</p>
 <p>There is no default value.</p>
 </div></div><!-- @@@port -->
 <br/>
@@ -209,7 +213,7 @@
 <td class="tblQmlPropNode"><p>
 <a name="source-prop"></a><span class="name">source</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Sets the connection's host name to source. To have effect, the source must be set before the connection is opened.</p>
+</div><div class="qmldoc"><p>Sets the connection's host name to <code>source</code>. To have effect, the source must be set before the connection is opened.</p>
 <p>There is no default value.</p>
 </div></div><!-- @@@source -->
 <br/>
@@ -220,7 +224,7 @@
 <td class="tblQmlPropNode"><p>
 <a name="user-prop"></a><span class="name">user</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Sets the connection's user name to user. To have effect, the user name must be set before the connection is opened.</p>
+</div><div class="qmldoc"><p>Sets the connection's user name to user. To have effect, the <code>user</code> name must be set before the connection is opened.</p>
 <p>There is no default value</p>
 </div></div><!-- @@@user -->
 <br/>
@@ -237,6 +241,30 @@
 <p><b>Warning:</b> If you add a connection with the same name as an existing connection, the new connection replaces the old one. If you call this function more than once without specifying <a href="qml-qmlsql-qmlsqldatabase.html#connectionName-prop">connectionName</a>, the default connection will be the one replaced.</p>
 <p><b>Note:</b> This function is thread-safe</p>
 </div></div><!-- @@@addDataBase -->
+<br/>
+<!-- $$$removeDatabase -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="removeDatabase-method">
+<td class="tblQmlFuncNode"><p>
+<a name="removeDatabase-method"></a><span class="name">removeDatabase</span>()</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Removes the database connection <code>connectionName</code> from the list of database connections.</p>
+<p><b>Warning:</b> There should be no open queries on the database connection when this method is called, otherwise a resource leak will occur.</p>
+<p>To remove the default connection, which may have been created with a call to addDatabase() not specifying a connection name, you can retrieve the default connection name by calling connectionName() on the database returned by database(). Note that if a default database hasn't been created an invalid database will be returned.</p>
+<p><b>Note:</b> This function is thread-safe</p>
+</div></div><!-- @@@removeDatabase -->
+<br/>
+<!-- $$$tables -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="tables-method">
+<td class="tblQmlFuncNode"><p>
+<a name="tables-method"></a><span class="type">variant</span> <span class="name">tables</span>(<span class="type">string</span> <i>connectionName</i>)</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>This returns a list of all the table names on a connection point by there connecitonName</p>
+<p><b>Note:</b> This is in alpha and subject to change.</p>
+</div></div><!-- @@@tables -->
 <br/>
         </div>
        </div>

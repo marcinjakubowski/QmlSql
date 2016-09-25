@@ -35,7 +35,7 @@
 <h1 class="title">QmlSqlCreateDatabase QML Type</h1>
 <span class="subtitle"></span>
 <!-- $$$QmlSqlCreateDatabase-brief -->
-<p>Creates a local database for <b>sqlight ONLY</b>. One must set the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop">databaseName</a> and also the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#filePath-prop">filePath</a> in which they would like to save the database file. One can use a md5sum that is randomly generated to create the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop">databaseName</a>. Or if you like you can also name the database <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a>. The method of exec is what is used to create the database. <a href="#details">More...</a></p>
+<p>Creates a local database for <b>sqlight only</b>. One must set the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop">databaseName</a> and also the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#filePath-prop">filePath</a> in which they would like to save the database file. One can use a md5Sum that is randomly generated to create the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop">databaseName</a>. Or if you like you can also name the database <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> via <a href="qml-qmlsql-qmlsqlcreatedatabase.html#databaseName-prop">databaseName</a>. The method of <code>exec</code> is what is used to create the database. <a href="#details">More...</a></p>
 <!-- @@@QmlSqlCreateDatabase -->
 <div class="table"><table class="alignedsummary">
 <tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import QmlSql 1.0</td></tr></table></div><ul>
@@ -67,7 +67,7 @@
           id: mainCreateDatabase
           fileName: <span class="string">&quot;SomeFileName&quot;</span>
           databaseName: <span class="string">&quot;ANewDatabase&quot;</span>
-          filePath:  <span class="string">&quot;SomePath&quot;</span>
+          filePath:  <span class="string">&quot;/Some/Path/To/Save/To&quot;</span>
           useMd5: <span class="keyword">false</span>
           onCreated:{
               <span class="comment">//do something</span>
@@ -84,7 +84,9 @@
 <td class="tblQmlPropNode"><p>
 <a name="databaseName-prop"></a><span class="name">databaseName</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>sets the name of the sqlight database</p>
+</div><div class="qmldoc"><p>Sets the name of the sqlight database to <code>databaseName</code>.</p>
+<p><b>Note</b> This is not the name of the file in which sqlight is saved to see <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a>. This is the database's name that is created.</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> and <a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a>.</p>
 </div></div><!-- @@@databaseName -->
 <br/>
 <!-- $$$errorString -->
@@ -94,7 +96,7 @@
 <td class="tblQmlPropNode"><p>
 <a name="errorString-prop"></a><span class="name">errorString</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Returns a error string if there is a error in the creation of the database.</p>
+</div><div class="qmldoc"><p>Returns a text error if there is a error in the creation of the database via <a href="qml-qmlsql-qmlsqlcreatedatabase.html#exec-method">exec()</a>.</p>
 </div></div><!-- @@@errorString -->
 <br/>
 <!-- $$$fileName -->
@@ -104,8 +106,9 @@
 <td class="tblQmlPropNode"><p>
 <a name="fileName-prop"></a><span class="name">fileName</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Sets the file name of the sqlight database</p>
-<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a>.</p>
+</div><div class="qmldoc"><p>Sets the file name of the sqlight database to fileName which will be saved on the users system.</p>
+<p><b>Note:</b> One must set the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#filePath-prop">filePath</a> first before this. <code>fileName</code> is just the name and not the full path that will be saved to the users harddrive.</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a> and <a href="qml-qmlsql-qmlsqlcreatedatabase.html#filePath-prop">filePath</a>.</p>
 </div></div><!-- @@@fileName -->
 <br/>
 <!-- $$$filePath -->
@@ -125,7 +128,7 @@
 <td class="tblQmlPropNode"><p>
 <a name="lastCreatedDatabaseFile-prop"></a><span class="name">lastCreatedDatabaseFile</span> : <span class="type">string</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>returns a string of the last sqlight database that was created</p>
+</div><div class="qmldoc"><p>Returns a string of the fullPath and name (string or md5) of last sqlight database that was created.</p>
 <p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a>.</p>
 </div></div><!-- @@@lastCreatedDatabaseFile -->
 <br/>
@@ -136,8 +139,9 @@
 <td class="tblQmlPropNode"><p>
 <a name="useMd5-prop"></a><span class="name">useMd5</span> : <span class="type">bool</span></p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>Sets this to true if you would like the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> of the sqlight database to be a randomly gentorated md5 sum. One can not use both fileNmae and use this feature.</p>
-<p><b>see also</b> : <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a></p>
+</div><div class="qmldoc"><p>Sets this to true if you would like the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> of the sqlight database to be a randomly generated <code>md5Sum</code>.</p>
+<p><b>Note:</b> One can not use both <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> and use this feature.</p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> and <a href="qml-qmlsql-qmlsqlcreatedatabase.html#filePath-prop">filePath</a>.</p>
 </div></div><!-- @@@useMd5 -->
 <br/>
 <h2>Method Documentation</h2>
@@ -148,8 +152,9 @@
 <td class="tblQmlFuncNode"><p>
 <a name="exec-method"></a><span class="type">void</span> <span class="name">exec</span>()</p></td></tr>
 </table></div>
-</div><div class="qmldoc"><p>A method that is run to create the database. Returns a error if it can not complete the method. If one is using a md5 it creates the filename based on the random md5 that is generated in this method</p>
-<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a>.</p>
+</div><div class="qmldoc"><p>A method that is run to create the database. Returns a <code>errorString</code> if it can not complete the method. If one is using a md5 it creates the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> based on the random md5 that is generated in this method. Else it uses the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> that you have set.</p>
+<p><b>Note</b> If you do not set the <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a> and also do not set the md5Sum to <code>true</code>. This will return a <code>errorString</code></p>
+<p><b>See also </b><a href="qml-qmlsql-qmlsqlcreatedatabase.html#useMd5-prop">useMd5</a> and <a href="qml-qmlsql-qmlsqlcreatedatabase.html#fileName-prop">fileName</a>.</p>
 </div></div><!-- @@@exec -->
 <br/>
         </div>
