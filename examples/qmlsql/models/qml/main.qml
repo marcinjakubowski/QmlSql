@@ -29,18 +29,14 @@ Window {
             text: name + " address = " + address
 
         }
-
     }
-
-
-
 
     QmlSqlQueryModel{
         id: queryModel
         // Set the connection name to the QmlSqlDatabase
         connectionName: "mainConnection"
         // Use a query string to fill the model
-        queryString: "SELECT * FROM SOMETABLE"
+        queryString: "SELECT * FROM MOCK_DATA"
     }
 
 
@@ -52,7 +48,7 @@ Window {
         source: "127.0.0.1"
 
         // set the database Name
-        databaseName: "SOMEDATABASE"
+        databaseName: "mock_data"
 
         // set the User of the connection
         user: ""

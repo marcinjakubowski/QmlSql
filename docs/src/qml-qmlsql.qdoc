@@ -1,6 +1,6 @@
 /*!
     \qmlmodule QmlSql 1.0
-    \title QmlSql components
+    \title QmlSql Objects
     \brief This implements QSql but for QtQuick.
 
 QmlSQL is an essential module which provides support for SQL databases. Qt SQL's APIs are divided into different layers:
@@ -26,7 +26,7 @@ To link against the Qt SQL module, add this line to the project file:
 \endcode
 
 
-Below are the folling Objects that are available at this time for QmlSql.
+Below are the following objects that are available at this time for QmlSql.
 
 
 

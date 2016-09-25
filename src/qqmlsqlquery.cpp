@@ -11,7 +11,7 @@
 
 QmlSqlQuery encapsulates the functionality involved in creating, navigating and retrieving data from SQL queries which are executed on a QmlSqlDatabase. It can be used to execute DML (data manipulation language) statements, such as SELECT, INSERT, UPDATE and DELETE, as well as DDL (data definition language) statements, such as CREATE TABLE. It can also be used to execute database-specific commands which are not standard SQL (e.g. SET DATESTYLE=ISO for PostgreSQL).
 
-Example:  say that you have a QmlSqlDatabase with the connecionName of "master-connection"
+Example:  say that you have a QmlSqlDatabase with the connectionName of "master-connection"
 
 \code
     QmlSqlQuery{
@@ -25,7 +25,9 @@ Example:  say that you have a QmlSqlDatabase with the connecionName of "master-c
 \endcode
 
 
-\b{Warning:} You must load the SQL driver and open the connection before a QmlSqlQuery is created. Also, the connection must remain open while the query exists; otherwise, the behavior of QmlSqlQuery is undefined.
+\b{Warning:} You must load the SQL driver via QmlSqlDatabase and open the connection before a
+\c QmlSqlQuery is created. Also, the connection must remain open while the query exists.
+Otherwise, the behavior of \c QmlSqlQuery is undefined.
 
 
 \sa QmlSqlDatabase , QmlSqlQueryModel
@@ -52,7 +54,8 @@ void QQmlSqlQuery::setRowsAffected(const int &rowsAffected)
 
 /*!
   \qmlproperty string QQmlSqlQuery::queryString
-    Sets the query to queryString that will be run on the connected QmlSqlDatabase. It is highly suggested to use a connectionName when running a query,
+    Sets the query to queryString that will be run on the connected QmlSqlDatabase via a connectionName.
+ It is highly suggested to use a connectionName when running a query,
 
     \sa connectionName , QmlSqlDatabase
  */
@@ -71,8 +74,10 @@ void QQmlSqlQuery::setQueryString(const QString &queryString)
 
 /*!
   \qmlproperty string QQmlSqlQuery::lastQuery
-    Returns the text of the current query being used, or an empty string if there is no current query text.
- */
+    Returns the text of the current query ( queryString ) being used, or an empty string if there is no current query text.
+
+\sa queryString , lastQueryOutPut
+*/
 QString QQmlSqlQuery::lastQuery() const
 {
     return m_lastQuery;
@@ -141,9 +146,9 @@ void QQmlSqlQuery::setErrorString(const QString &errorString)
 
 /*!
   \qmlmethod void QQmlSqlQuery::exec()
-  Executes a previously prepared SQL query.
+  Executes a previously prepared SQL query ( queryString ). on a connected QmlSqlDatabase via connectionName.
 
-  Note that the last error for this query is not reset when exec() is called.
+  \b{Note} That the last error for this query is not reset when exec() is called.
  */
 void QQmlSqlQuery::exec()
 {
@@ -188,11 +193,58 @@ void QQmlSqlQuery::exec()
 }
 
 /*!
-  \qmlmethod void QQmlSqlQuery::execWithQuery(string string)
-  Method that is used to execute SQL query. This method takes in two strings the first one being the connectionName and the second one being the SQL query string that you wish to run.
+  \qmlmethod void QQmlSqlQuery::execWithQuery(string connectionName , string queryString)
+  Method that is used to execute SQL query. This method takes in two strings the first one being
+the \c connectionName and the second one being the SQL \c queryString that you wish to run.
 
-  Note that the last error for this query is not reset when exec() is called.
- */
+Example:
+
+\code
+
+    Column {
+        anchors.fill: parent
+        spacing: 1
+        TextArea{
+            id: output
+            width:parent.width
+            height : parent.height - ( queryTrigger.height * 2 + 4)
+        }
+        Button{
+            text: "Clear"
+            width:parent.width
+            onClicked{
+                output.text = ""
+            }
+        }
+        Button{
+            id: queryTrigger
+            width:parent.width
+            text: "Run SELECT * FROM SOMETABLE"
+            onClicked{
+                dbQueryRunner( "master-connection",  "SELECT * FROM SOMETABLE" )
+            }
+        }
+    }
+
+    QmlSqlQuery{
+        id: dbQueryRunner
+        onErrorStringChanged:{
+            output.color = red
+            output.text = errorString
+            output.color = black
+        }
+        onDone: {
+            output.text += lastQueryOutPut
+        }
+    }
+
+\endcode
+
+  \b{Note} The last error for this query is not reset when execWithQuery() is called.
+
+ \sa QmlSqlDatabase, exec(), connectionName
+
+*/
 void QQmlSqlQuery::execWithQuery(const QString connectionName, const QString &query)
 {
 

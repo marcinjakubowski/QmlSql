@@ -7,9 +7,10 @@
    \inqmlmodule QmlSql 1.0
    \ingroup QmlSql
    \inherits QObject
-   \brief  Creates a local database for \b{sqlight ONLY}. One must set the databaseName and also the filePath in which they would like to save
-    the database file. One can use a md5sum that is randomly generated to create the databaseName. Or if you like you can also
-    name the database fileName. The method of exec is what is used to create the database.
+   \brief  Creates a local database for \b{sqlight only}. One must set the databaseName and also the
+    filePath in which they would like to save the database file. One can use a md5Sum that is randomly
+    generated to create the databaseName. Or if you like you can also  name the database fileName via databaseName.
+    The method of \c exec is what is used to create the database.
 
     Example:
 
@@ -18,7 +19,7 @@
             id: mainCreateDatabase
             fileName: "SomeFileName"
             databaseName: "ANewDatabase"
-            filePath:  "SomePath"
+            filePath:  "/Some/Path/To/Save/To"
             useMd5: false
             onCreated:{
                 //do something
@@ -34,8 +35,17 @@
 
 QmlSqlCreateDatabase::QmlSqlCreateDatabase(QObject *parent) :
     QObject(parent),
+    m_useMd5(true),
     m_databaseName("NULL")
 {
+
+    /*!
+     \qmlsignal onErrorStringChanged
+        A signal that is emited when there is a creation of the database
+
+        \sa errorString
+    */
+
     connect(this,SIGNAL(error(QString)), this,SLOT(handelError(QString)));
 }
 
@@ -60,9 +70,12 @@ void QmlSqlCreateDatabase::setFilePath(const QString &filePath)
 }
 /*!
  \qmlproperty string QmlSqlCreateDatabase::fileName
-  Sets the file name of the sqlight database
+  Sets the file name of the sqlight database to fileName which will be saved on the users system.
 
-  \sa useMd5
+  \b{Note:} One must set the filePath first before this. \c fileName is just the name and not the full path that will be saved to the users harddrive.
+
+
+  \sa useMd5 , filePath
  */
 QString QmlSqlCreateDatabase::fileName() const
 {
@@ -83,10 +96,12 @@ void QmlSqlCreateDatabase::setFileName(const QString &fileName)
 
 /*!
  \qmlproperty bool QmlSqlCreateDatabase::useMd5
-    Sets this to true if you would like the fileName of the sqlight database to be a randomly gentorated md5 sum.
-    One can not use both fileNmae and use this feature.
+    Sets this to true if you would like the fileName of the sqlight database to be a randomly generated
+ \c md5Sum.
 
-    \b{see also} : fileName
+    \b{Note:} One can not use both fileName and use this feature.
+
+    \sa fileName, filePath
  */
 bool QmlSqlCreateDatabase::useMd5() const
 {
@@ -108,7 +123,12 @@ void QmlSqlCreateDatabase::setUseMd5(const bool &useMd5)
 
 /*!
   \qmlproperty string QmlSqlCreateDatabase::databaseName
-    sets the name of the sqlight database
+    Sets the name of the sqlight database to \c databaseName.
+
+    \b{Note} This is not the name of the file in which sqlight is saved to see fileName.
+    This is the database's name that is created.
+
+    \sa fileName, useMd5
  */
 QString QmlSqlCreateDatabase::databaseName() const
 {
@@ -130,7 +150,7 @@ void QmlSqlCreateDatabase::setDatabaseName(const QString &databaseName)
 
 /*!
   \qmlproperty string QmlSqlCreateDatabase::errorString
-    Returns a error string if there is a error in the creation of the database.
+    Returns a text error if there is a error in the creation of the database via exec().
  */
 QString QmlSqlCreateDatabase::errorString()
 {
@@ -139,7 +159,8 @@ QString QmlSqlCreateDatabase::errorString()
 
 /*!
   \qmlproperty string QmlSqlCreateDatabase::lastCreatedDatabaseFile
-  returns a string of the last sqlight database that was created
+  Returns a string of the fullPath and name (string or md5) of last sqlight database that was created.
+
 
   \sa useMd5
  */
@@ -163,10 +184,14 @@ void QmlSqlCreateDatabase::setLastCreatedDatabaseFile(const QString lastCreatedD
 
 /*!
   \qmlmethod void QmlSqlCreateDatabase::exec()
-  A method that is run to create the database. Returns a error if it can not complete the method.
-  If one is using a md5 it creates the filename based on the random md5 that is generated in this method
+  A method that is run to create the database. Returns a \c errorString if it can not complete the method.
+  If one is using a md5 it creates the fileName based on the random md5 that is generated in this method.
+  Else it uses the fileName that you have set.
 
-  \sa useMd5
+  \b{Note} If you do not set the fileName and also do not set the md5Sum to \c true. This will return a \c errorString
+
+
+  \sa useMd5, fileName
 */
 void QmlSqlCreateDatabase::exec()
 {
@@ -314,8 +339,7 @@ void QmlSqlCreateDatabase::exec()
 
 /*!
  \brief QString QmlSqlCreateDatabase::generateMd5Sum(const QString &databaseName)
-
- Returns a string md5sum that is used in the exec method if the property of use useMd5 is set to true in the QML code.
+  Returns a string md5sum that is used in the exec method if the property of use useMd5 is set to true in the QML code.
  */
 QString QmlSqlCreateDatabase::generateMd5Sum(const QString &databaseName)
 {

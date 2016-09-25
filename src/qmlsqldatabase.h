@@ -2,12 +2,13 @@
 #define QMLSQLDATABASE_H
 #include <QObject>
 #include <QSqlDatabase>
+#include <QSqlError>
 #include <QVariant>
 #include <QDebug>
 
 class QmlSqlDatabase : public QObject
 {
-     Q_OBJECT
+    Q_OBJECT
 
     Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged )
     Q_PROPERTY(QString databaseName READ databaseName WRITE setdatabaseName NOTIFY databaseNameChanged)
@@ -20,11 +21,17 @@ class QmlSqlDatabase : public QObject
     Q_PROPERTY(DataBaseDriver databaseDriver READ databaseDriver WRITE setDatabaseDriver NOTIFY databaseDriverChanged)
     Q_PROPERTY(QStringList databaseDriverList READ databaseDriverList NOTIFY databaseDriverListChanged)
     Q_ENUMS(DataBaseDriver)
+    Q_ENUMS(TableTypes)
 
 public:
     explicit QmlSqlDatabase(QObject *parent = 0);
 
+
+    enum TableType{ Tables, SystemTables, Views, AllTables };
     enum DataBaseDriver{ PostGre, MySql, OCI, ODBC, DB2, TDS, SQLight, SQLight2, IBase };
+    enum CloseReason{ Error, Requested, Unknown  };
+
+
     DataBaseDriver databaseDriver()const;
     void setDatabaseDriver(const DataBaseDriver &databaseDriver);
     QStringList databaseDriverList()const;
@@ -55,15 +62,10 @@ public:
 
     Q_INVOKABLE void addDataBase();
     Q_INVOKABLE QStringList connectionNames();
-
-
-    //FIXME make these later
-    // have to comment out for windows as it can not take a void function ! fucking doz
-    //    Q_INVOKABLE void removeDatabase(const QString &connectionName);
-    //    Q_INVOKABLE void connect();
-    //    Q_INVOKABLE void closeConnection(const QString connectionName);
-    //    Q_INVOKABLE void closeAllConnections();
+    Q_INVOKABLE void removeDatabase(const QString &connectionName);
+    Q_INVOKABLE void closeAllConnections();
     Q_INVOKABLE bool running();
+    Q_INVOKABLE QStringList tables(const QString &connectionName,const TableType &tableType);
 
 
 signals:
@@ -82,13 +84,14 @@ signals:
     void error(QString);
     //passing the conenction name
     void connectionOpened(QSqlDatabase, QString);
-    void closeRequested(QString);
+    void closeRequested(CloseReason,QString);
+    void sqlError(QSqlError);
 
 public slots:
     void handelError(const QString err);
     void handelOpened(QSqlDatabase database, const QString connectionName);
-    void handelCloseRequested(const QString connectionName);
-
+    void handelCloseRequested(const CloseReason &reason, const QString &connectionName);
+    void handelSqlError(const QSqlError &err);
 
 private:
     QSqlDatabase db;
@@ -105,5 +108,8 @@ private:
 
     bool m_running;
     QString m_errorString;
+
+    QSql::TableType setTableType(const QmlSqlDatabase::TableType &type);
+    QString closeReasonToString(const CloseReason &cR);
 };
 #endif //  // QMLSQLDATABASE
