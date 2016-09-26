@@ -2,7 +2,7 @@ QT += sql
 
 CONFIG += c++11
 
-RESOURCES += \
+SOURCES += \
     $$PWD/src/plugin.cpp \
     $$PWD/src/plugin.h \
     $$PWD/src/qmlsqlcreatedatabase.cpp \
