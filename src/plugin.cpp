@@ -3,7 +3,6 @@
 #include "qqmlsqlquery.h"
 #include "qmlsqlquerymodel.h"
 #include "qmlsqlcreatedatabase.h"
-//#include "qmlsqltablemode.h"
 #include <qqml.h>
 
 void QQmlSqlPlugin::registerTypes(const char *uri)

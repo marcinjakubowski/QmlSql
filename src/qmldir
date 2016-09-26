@@ -1,2 +1,3 @@
 module QmlSql
 plugin QmlSql
+classname QQmlSqlPlugin

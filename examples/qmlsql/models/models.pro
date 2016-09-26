@@ -12,4 +12,3 @@ QML_IMPORT_PATH =
 
 target.path = $$[QT_INSTALL_EXAMPLES]/qmlsql/models/
 INSTALLS += target
-#OTHER_FILES += doc/*

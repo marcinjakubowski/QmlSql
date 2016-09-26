@@ -1,0 +1,22 @@
+{
+  "name": "com.github.josephmillsatwork.qmlsql",
+  "description": "QmlSQL is an essential module which provides support for SQL databases.",
+  "author": {
+    "name": "Joseph Mills",
+    "email": "josephjamesmills@gmial.com"
+  },
+  "repository": {
+    "type": "GITHUB",
+    "url": "https://github.com/JosephMillsAtWork/QmlSql.git"
+  },
+  "version": {
+    "label": "0.0.1",
+    "revision": "",
+    "fingerprint": ""
+  },
+  "dependencies": [
+  ],
+  "license": "LGPL_3_0",
+  "pri_filename": "com_github_josephmillsatwork_qmlsql.pri",
+  "webpage": "http://josephmillsatwork.github.io/QmlSql/"
+}
