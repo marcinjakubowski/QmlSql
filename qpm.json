@@ -10,13 +10,13 @@
     "url": "https://github.com/JosephMillsAtWork/QmlSql.git"
   },
   "version": {
-    "label": "0.0.1",
+    "label": "0.0.3",
     "revision": "",
     "fingerprint": ""
   },
   "dependencies": [
   ],
-  "license": "LGPL_3_0",
+  "license": "MIT",
   "pri_filename": "com_github_josephmillsatwork_qmlsql.pri",
   "webpage": "http://josephmillsatwork.github.io/QmlSql/"
 }
