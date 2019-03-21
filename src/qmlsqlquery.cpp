@@ -1,4 +1,5 @@
 #include "qmlsqlquery.h"
+#include <QStringBuilder>
 
 
 
@@ -213,16 +214,16 @@ void QmlSqlQuery::execWithQuery(const QString& connectionName, const QString& qu
     }
 
     if (db_query.isSelect()) {
-        m_lastQueryOutPut.clear();
+        QString output;
         QSqlRecord rec = db_query.record();
-        const int rowCount = rec.count() - 1 ;
-        while (db_query.next()){
-            for (int i = 0;i<= rowCount ; i++)
-            {
-                m_lastQueryOutPut.append(db_query.value(i).toString() + " " );
+        const int columnCount = rec.count() - 1 ;
+        while (db_query.next()) {
+            for (int i=0; i<=columnCount; i++) {
+                output.append(db_query.value(i).toString() % '\t');
             }
+            output.append('\n');
         }
-        setLastQueryOutPut(m_lastQueryOutPut);
+        setLastQueryOutPut(output);
     }
     else {
         setRowsAffected(db_query.numRowsAffected());
