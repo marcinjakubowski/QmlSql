@@ -28,7 +28,7 @@ public:
 
 
     enum TableType{ Tables, SystemTables, Views, AllTables };
-    enum DataBaseDriver{ PostGre, MySql, OCI, ODBC, DB2, TDS, SQLight, SQLight2, IBase };
+    enum DataBaseDriver{ Postgres, MySql, OCI, ODBC, DB2, TDS, SQLite, SQLite2, IBase };
     enum CloseReason{ Error, Requested, Unknown  };
 
 

@@ -99,8 +99,8 @@ void QmlSqlDatabase::setDatabaseDriver(const QmlSqlDatabase::DataBaseDriver &dat
     else
     {
         switch (databaseDriver) {
-        case PostGre:
-            m_databaseDriver = PostGre;
+        case Postgres:
+            m_databaseDriver = Postgres;
             m_databaseDriverString =  "QPSQL";
             break;
         case MySql:
@@ -123,13 +123,13 @@ void QmlSqlDatabase::setDatabaseDriver(const QmlSqlDatabase::DataBaseDriver &dat
             m_databaseDriver = TDS;
             m_databaseDriverString =  "QTDS";
             break;
-        case SQLight:
-            m_databaseDriver =SQLight ;
+        case SQLite:
+            m_databaseDriver = SQLite;
             m_databaseDriverString =  "QSQLITE";
 
             break;
-        case SQLight2:
-            m_databaseDriver = SQLight2;
+        case SQLite2:
+            m_databaseDriver = SQLite2;
             m_databaseDriverString =  "QSQLITE2";
             break;
         case IBase:
