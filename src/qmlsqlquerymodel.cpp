@@ -43,19 +43,16 @@ QmlSqlQueryModel::QmlSqlQueryModel(QObject *parent) :
 
 }
 
-
 /*!
   \qmlproperty string QmlSqlQueryModel::connectionName
    Set the connectionName to connectionName. This is used on a open QmlSqlDatabase,
  */
-QString QmlSqlQueryModel::connectionName() const
-{
+QString QmlSqlQueryModel::connectionName() const {
     return m_connectionName;
 }
 
-void QmlSqlQueryModel::setConnectionName(const QString &connectionName)
-{
-    if ( m_connectionName == connectionName )
+void QmlSqlQueryModel::setConnectionName(const QString& connectionName) {
+    if (m_connectionName == connectionName)
         return;
     m_connectionName = connectionName ;
     emit connectionNameChanged();
@@ -69,44 +66,37 @@ void QmlSqlQueryModel::setConnectionName(const QString &connectionName)
 
 \sa errorString
 */
-QString QmlSqlQueryModel::queryString() const
-{
+QString QmlSqlQueryModel::queryString() const {
     return  m_queryString;
 }
 
-void QmlSqlQueryModel::setQueryString(const QString &queryString)
-{
-    if ( m_queryString == queryString )
+void QmlSqlQueryModel::setQueryString(const QString& queryString) {
+    if (m_queryString == queryString)
         return;
     m_queryString = queryString ;
     emit queryStringChanged();
 }
 
 
-QStringList QmlSqlQueryModel::rolesList() const
-{
+QStringList QmlSqlQueryModel::rolesList() const {
     return m_roleList;
 }
-
 
 /*!
  \qmlproperty string QmlSqlQueryModel::errorString
     Returns information about the last error that occurred on the database.
 \sa exec()
 */
-QString QmlSqlQueryModel::errorString() const
-{
+QString QmlSqlQueryModel::errorString() const {
     return m_error;
 }
 
 // this is not yet implemented
-bool QmlSqlQueryModel::readOnly() const
-{
+bool QmlSqlQueryModel::readOnly() const {
     return m_readOnly;
 }
 // this is not yet implemented
-void QmlSqlQueryModel::setReadOnly(const bool &readOnly)
-{
+void QmlSqlQueryModel::setReadOnly(bool readOnly) {
     if(m_readOnly == readOnly)
         return;
     m_readOnly = readOnly;
@@ -119,49 +109,53 @@ void QmlSqlQueryModel::setReadOnly(const bool &readOnly)
 
  \sa queryString , errorString
 */
-void QmlSqlQueryModel::exec()
-{
+void QmlSqlQueryModel::exec() {
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     QSqlQueryModel::setQuery(m_queryString, db);
-    if ( this->lastError().isValid() )
-    {
-        error(  parseError( this->lastError().type() ) );
+
+    if (this->lastError().isValid()) {
+        error(parseError(this->lastError().type()));
         return ;
     }
-    else
-    {
+    else {
         roleNames();
     }
 }
 
-void QmlSqlQueryModel::clearModel()
-{
+void QmlSqlQueryModel::clearModel() {
     this->clear();
 }
 
-QHash<int, QByteArray>QmlSqlQueryModel::roleNames() const
-{
-    QHash<int,QByteArray> hash;
-    for( int i = 0; i < record().count(); i++)
-    {
+QHash<int, QByteArray>QmlSqlQueryModel::roleNames() const {
+    QHash<int, QByteArray> hash;
+    for(int i = 0; i < record().count(); i++) {
         hash.insert(Qt::UserRole + i + 1, QByteArray(record().fieldName(i).toLatin1()));
     }
     return hash;
 
 }
 
-QString QmlSqlQueryModel::parseError(const QSqlError::ErrorType &mError)
-{
-    if ( mError == QSqlError::NoError ){ return "No Error"; }
-    else if ( mError == QSqlError::ConnectionError){ return "Connection Error"; }
-    else if ( mError == QSqlError::StatementError){ return "Statement Error "; }
-    else if ( mError == QSqlError::TransactionError){ return "TransactionError"; }
-    else if ( mError == QSqlError::UnknownError){ return "Unknown Error"; }
-    else {return QString();}
+QString QmlSqlQueryModel::parseError(const QSqlError::ErrorType& mError) {
+    if (mError == QSqlError::NoError) {
+        return "No Error";
+    }
+    else if (mError == QSqlError::ConnectionError) {
+        return "Connection Error";
+    }
+    else if (mError == QSqlError::StatementError) {
+        return "Statement Error ";
+    }
+    else if (mError == QSqlError::TransactionError) {
+        return "TransactionError";
+    }
+    else if (mError == QSqlError::UnknownError) {
+        return "Unknown Error";
+    }
+
+    return QString();
 }
 
-void QmlSqlQueryModel::handelErrorString(const QString &errorString)
-{
+void QmlSqlQueryModel::handelErrorString(const QString& errorString) {
     if(m_error == errorString)
         return;
     m_error = errorString;
@@ -170,15 +164,12 @@ void QmlSqlQueryModel::handelErrorString(const QString &errorString)
 
 
 // set up the model
-QVariant QmlSqlQueryModel::data(const QModelIndex &index, int role)const
-{
+QVariant QmlSqlQueryModel::data(const QModelIndex& index, int role)const {
     QVariant value = QSqlQueryModel::data(index, role);
-    if(role < Qt::UserRole)
-    {
+    if(role < Qt::UserRole) {
         value = QSqlQueryModel::data(index, role);
     }
-    else
-    {
+    else {
         int columnIdx = role - Qt::UserRole - 1;
         QModelIndex modelIndex = this->index(index.row(), columnIdx);
         value = QSqlQueryModel::data(modelIndex, Qt::DisplayRole);

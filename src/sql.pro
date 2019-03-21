@@ -16,16 +16,16 @@ uri = QmlSql
 SOURCES += \
     plugin.cpp \
     qmlsqldatabase.cpp \
-    qqmlsqlquery.cpp \
     qmlsqlquerymodel.cpp \
-    qmlsqlcreatedatabase.cpp
+    qmlsqlcreatedatabase.cpp \
+    qmlsqlquery.cpp
 
 HEADERS += \
     plugin.h \
     qmlsqldatabase.h \
-    qqmlsqlquery.h \
     qmlsqlquerymodel.h \
-    qmlsqlcreatedatabase.h
+    qmlsqlcreatedatabase.h \
+    qmlsqlquery.h
 
 
 DISTFILES = qmldir

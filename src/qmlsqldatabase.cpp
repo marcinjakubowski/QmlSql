@@ -12,7 +12,7 @@ QmlSqlDatabase represents the connection. The connection provides access to the 
 supported \c databaseDriver , which are derived from \c{QSqlDriver (c++)}.
 Alternatively, one can subclass your own database driver from \c{QSqlDriver (c++)}. See How to Write Your Own Database Driver for more information.
 Create a connection (i.e., an instance of QSqlDatabase) by calling one of the method addDatabase() , where you specify the databaseDriver  (i.e., what kind of database will you access) and a connectionName.
-A connection is known by its own name, Not by the name of the database it connects to. You can have \b{multiple connections to one database}. QSqlDatabase also supports the concept of a default connection (not recommended ),
+A connection is known by its own name, Not by the name of the database it connects to. You can have \b{multiple connections to one database}. QSqlDatabase also supports the concept of a default connection (not recommended),
  which is the unnamed connection. To create the default connection, don't pass the connection name argument before you call addDatabase(). Subsequently, when you call any method function that takes the connection name argument,
  if you don't pass the connectionName argument, the default connection is assumed. The following snippet shows how to create and open a default connection to a PostgreSQL database:
 
@@ -69,14 +69,12 @@ Some of the things are close open check validation of Database types ect.
 
 QmlSqlDatabase::QmlSqlDatabase(QObject *parent)
     : QObject(parent)
-
 {
         setDatabaseDriverList();
-//        This is to keep up with the track of how
-        connect( this,SIGNAL(error(QString)), this,SLOT(handelError(QString)));
-        connect( this,SIGNAL(connectionOpened(QSqlDatabase,QString)), this,SLOT(handelOpened(QSqlDatabase,QString)) );
-        connect( this,SIGNAL(closeRequested(CloseReason,QString)), this,SLOT(handelCloseRequested(CloseReason,QString)) );
-        connect( this,SIGNAL(sqlError(QSqlError)),this,SLOT(handelSqlError(QSqlError)));
+        connect(this, SIGNAL(error(QString)), this, SLOT(handleError(QString)));
+        connect(this, SIGNAL(connectionOpened(QSqlDatabase,QString)), this, SLOT(handleOpened(QSqlDatabase,QString)));
+        connect(this, SIGNAL(closeRequested(CloseReason,QString)), this, SLOT(handleCloseRequested(CloseReason,QString)));
+        connect(this, SIGNAL(sqlError(QSqlError)),this, SLOT(handleSqlError(QSqlError)));
 
 }
 
@@ -86,19 +84,17 @@ QmlSqlDatabase::QmlSqlDatabase(QObject *parent)
   \sa addDataBase()
 
  */
-QmlSqlDatabase::DataBaseDriver QmlSqlDatabase::databaseDriver() const
-{
+QmlSqlDatabase::DataBaseDriver QmlSqlDatabase::databaseDriver() const {
     return m_databaseDriver;
 }
 
-void QmlSqlDatabase::setDatabaseDriver(const QmlSqlDatabase::DataBaseDriver &databaseDriver)
+void QmlSqlDatabase::setDatabaseDriver(const QmlSqlDatabase::DataBaseDriver& databaseDriver)
 {
-    if(m_databaseDriver == databaseDriver){
+    if(m_databaseDriver == databaseDriver) {
         return;
     }
-    else
-    {
-        switch (databaseDriver) {
+
+    switch (databaseDriver) {
         case Postgres:
             m_databaseDriver = Postgres;
             m_databaseDriverString =  "QPSQL";
@@ -136,9 +132,8 @@ void QmlSqlDatabase::setDatabaseDriver(const QmlSqlDatabase::DataBaseDriver &dat
             m_databaseDriver = IBase;
             m_databaseDriverString =  "QIBASE";
             break;
-        }
-        emit databaseDriverChanged();
     }
+    emit databaseDriverChanged();
 }
 
 /*!
@@ -152,14 +147,11 @@ QStringList QmlSqlDatabase::databaseDriverList() const
 }
 
 
-void QmlSqlDatabase::setDatabaseDriverList()
-{
+void QmlSqlDatabase::setDatabaseDriverList() {
     m_databaseDriverList.clear();
     QList<QString> li;
-    foreach(QString l, QSqlDatabase::drivers() )
-    {
-       if ( QSqlDatabase::isDriverAvailable(l) )
-       {
+    foreach(QString l, QSqlDatabase::drivers()) {
+       if (QSqlDatabase::isDriverAvailable(l)) {
            li << l;
        }
     }
@@ -170,8 +162,7 @@ void QmlSqlDatabase::setDatabaseDriverList()
   \qmlproperty string QmlSqlDatabase::errorString
     Returns information about the last error that occurred on the database.
  */
-QString QmlSqlDatabase::errorString() const
-{
+QString QmlSqlDatabase::errorString() const {
     return m_errorString;
 }
 
@@ -182,14 +173,13 @@ Sets the connection's host name to \c source. To have effect, the source must be
 There is no default value.
 
  */
-QString QmlSqlDatabase::source() const
-{
+QString QmlSqlDatabase::source() const {
     return m_source;
 }
-void QmlSqlDatabase::setSource(const QString &source)
-{
-    if ( m_source == source )
+void QmlSqlDatabase::setSource(const QString& source) {
+    if (m_source == source)
         return;
+
     m_source = source ;
     emit sourceChanged();
 }
@@ -206,14 +196,14 @@ There is no default value.
 
  */
 
-QString QmlSqlDatabase::databaseName() const
-{
+QString QmlSqlDatabase::databaseName() const {
     return m_dbName;
 }
-void QmlSqlDatabase::setdatabaseName(const QString &databaseName)
-{
-    if ( m_dbName == databaseName )
+
+void QmlSqlDatabase::setdatabaseName(const QString& databaseName) {
+    if (m_dbName == databaseName)
         return;
+
     m_dbName = databaseName ;
     emit databaseNameChanged() ;
 }
@@ -224,14 +214,14 @@ Sets the connection's user name to user. To have effect, the \c user name must b
 
 There is no default value
  */
-QString QmlSqlDatabase::user() const
-{
+QString QmlSqlDatabase::user() const {
     return m_user;
 }
-void QmlSqlDatabase::setUser(const QString &user)
-{
-    if ( m_user == user )
+
+void QmlSqlDatabase::setUser(const QString& user) {
+    if (m_user == user)
         return;
+
     m_user = user ;
     emit userChanged();
 }
@@ -247,14 +237,14 @@ There is no default value.
 
 
  */
-QString QmlSqlDatabase::password() const
-{
+QString QmlSqlDatabase::password() const {
     return m_password;
 }
-void QmlSqlDatabase::setPassword(const QString &password)
-{
-    if ( m_password == password )
+
+void QmlSqlDatabase::setPassword(const QString& password) {
+    if (m_password == password)
         return;
+
     m_password = password ;
     emit passwordChanged();
 }
@@ -267,14 +257,14 @@ Sets the connection's port number to \c port. To have effect, the port number mu
 There is no default value.
 
  */
-int QmlSqlDatabase::port() const
-{
+int QmlSqlDatabase::port() const {
     return m_port;
 }
-void QmlSqlDatabase::setPort(int port)
-{
-    if ( m_port == port )
+
+void QmlSqlDatabase::setPort(int port) {
+    if (m_port == port)
         return;
+
     m_port = port ;
     emit portChanged();
 }
@@ -285,15 +275,14 @@ void QmlSqlDatabase::setPort(int port)
   \qmlproperty string QmlSqlDatabase::connectionName
 Sets the connectionName to connectionName
 */
-QString QmlSqlDatabase::connectionName() const
-{
+QString QmlSqlDatabase::connectionName() const {
     return m_connectionName;
 }
 
-void QmlSqlDatabase::setConnectionName(const QString &connectionName)
-{
-    if ( m_connectionName == connectionName )
+void QmlSqlDatabase::setConnectionName(const QString& connectionName) {
+    if (m_connectionName == connectionName)
         return;
+
     m_connectionName = connectionName ;
     emit connectionNameChanged();
 }
@@ -317,10 +306,8 @@ the one replaced.
 
 
 */
-void QmlSqlDatabase::addDataBase()
-{
-
-    db = QSqlDatabase::addDatabase(m_databaseDriverString , m_connectionName);
+void QmlSqlDatabase::addDataBase() {
+    db = QSqlDatabase::addDatabase(m_databaseDriverString, m_connectionName);
     //FIXME Stop this recration and make a pointer that adppends to.
     // db.close();
     db.setHostName(m_source);
@@ -328,15 +315,12 @@ void QmlSqlDatabase::addDataBase()
     db.setUserName(m_user);
     db.setPassword(m_password);
     db.setPort(m_port);
-    if ( !db.open() )
-    {
+    if (!db.open()) {
         sqlError(db.lastError());
         closeRequested(Error,m_connectionName);
     }
-    else
-    {
+    else {
         connectionOpened(db , m_connectionName);
-
     }
 }
 
@@ -346,8 +330,7 @@ returns a list of connection Names that are set on this db
 
 for more info on this please see the source code.
  */
-QStringList QmlSqlDatabase::connectionNames()
-{
+QStringList QmlSqlDatabase::connectionNames() {
     return db.connectionNames();
 }
 
@@ -364,32 +347,19 @@ QStringList QmlSqlDatabase::connectionNames()
 
     \b{Note:} This function is thread-safe
 */
-void QmlSqlDatabase::removeDatabase(const QString &connectionName)
-{
-
-    foreach (QString l, db.connectionNames() ){
-        if (l == connectionName){
+void QmlSqlDatabase::removeDatabase(const QString& connectionName) {
+    foreach (QString l, db.connectionNames()) {
+        if (l == connectionName) {
             QSqlDatabase::removeDatabase(connectionName);
         }
     }
 
 }
 
-void QmlSqlDatabase::closeAllConnections()
-{
-    foreach (QString l, db.connectionNames() ){
-            QSqlDatabase::removeDatabase(l);
+void QmlSqlDatabase::closeAllConnections() {
+    foreach (QString l, db.connectionNames()) {
+        QSqlDatabase::removeDatabase(l);
     }
-}
-
-
-/*!
-  \qmlproperty bool QmlSqlDatabase::running
-    Returns true if the database connection is currently open; otherwise returns false.
- */
-bool QmlSqlDatabase::running()
-{
-    return m_running;
 }
 
 /*!
@@ -400,79 +370,87 @@ bool QmlSqlDatabase::running()
  \b{Note:} This is in alpha and subject to change.
 
  */
-QStringList QmlSqlDatabase::tables(const QString &connectionName,const TableType &tableType)
-{
+QStringList QmlSqlDatabase::tables(const QString& connectionName,const TableType& tableType) {
     QStringList li;
-    li.clear();
-    for(int i = 0 ; i < db.connectionNames().length(); i++ )
-    {
-        if( db.connectionNames().at(i) == connectionName )
-        {
-                    li = db.tables( setTableType(tableType));
+
+    for(int i = 0 ; i < db.connectionNames().length(); i++) {
+        if (db.connectionNames().at(i) == connectionName) {
+            li = db.tables(setTableType(tableType));
         }
-        else
-        {
+        else {
             li = QStringList();
-            error( QString("could not find database connection with the  connectionName of %1").arg(connectionName) ) ;
+            error(QString("could not find database connection with the  connectionName of %1").arg(connectionName)) ;
         }
     }
+
     return li;
 }
 
-void QmlSqlDatabase::handelError(const QString err)
-{
+void QmlSqlDatabase::handleError(const QString& err) {
     if (m_errorString == err)
         return;
+
     m_errorString = err;
     emit errorStringChanged();
 }
 
-void QmlSqlDatabase::handelOpened(QSqlDatabase database, const QString connectionName)
-{
+void QmlSqlDatabase::handleOpened(QSqlDatabase database, const QString& connectionName) {
     qDebug() << connectionName  << " Is Open " << database.connectionName();
 }
 
-void QmlSqlDatabase::handelCloseRequested(const CloseReason &reason, const QString &connectionName)
-{
+void QmlSqlDatabase::handleCloseRequested(const CloseReason& reason, const QString& connectionName) {
     qDebug() << "connection name has been requested to close " << connectionName << " Reason: " << closeReasonToString(reason) ;
 }
 
-void QmlSqlDatabase::handelSqlError(const QSqlError &err)
-{
+void QmlSqlDatabase::handleSqlError(const QSqlError& err) {
     QString er = QString("Error"
                          "\nFull reason: %1"
                          "\nDriver Error Text: %3"
                          "\nDataBase Text Error: %4"
                          "\nNative Code Reason: %2"
-                         )
-            .arg( err.text() )
-            .arg( err.nativeErrorCode() )
-            .arg( err.driverText() )
-            .arg( err.databaseText() )
+                        )
+            .arg(err.text())
+            .arg(err.nativeErrorCode())
+            .arg(err.driverText())
+            .arg(err.databaseText())
                  ;
-    error( er ) ;
+    error(er) ;
 }
 
-QSql::TableType QmlSqlDatabase::setTableType(const QmlSqlDatabase::TableType &type)
-{
-    if (type == Tables){ return QSql::Tables; }
-    else if (type == SystemTables){ return QSql::SystemTables; }
-    else if (type == Views){ return QSql::Views; }
-    else if (type == AllTables){ return QSql::AllTables; }
-    else {
-        error("Warning: Not a vaild Table Type trying with AllTypes");
-        return  QSql::AllTables;
+QSql::TableType QmlSqlDatabase::setTableType(const QmlSqlDatabase::TableType& type) {
+    if (type == Tables) {
+        return QSql::Tables;
     }
+    else if (type == SystemTables) {
+        return QSql::SystemTables;
+    }
+    else if (type == Views) {
+        return QSql::Views;
+    }
+    else if (type == AllTables) {
+        return QSql::AllTables;
+    }
+
+    error("Warning: Not a vaild Table Type trying with AllTypes");
+    return  QSql::AllTables;
 }
 
 
 
-QString QmlSqlDatabase::closeReasonToString(const QmlSqlDatabase::CloseReason &cR)
+QString QmlSqlDatabase::closeReasonToString(const QmlSqlDatabase::CloseReason& cR)
 {
-    if(cR == Error ){return "Error";}
-    else if(cR == Requested ){return "User Requested";}
-    else if(cR == Unknown ){return "Unknown";}
-    else{ return "Unknown and not good";}
+    if (cR == Error) {
+        return "Error";
+    }
+    else if (cR == Requested) {
+        return "User Requested";
+    }
+    else if (cR == Unknown) {
+        return "Unknown";
+    }
+
+    return "Unknown and not good";
+
 }
 
 
