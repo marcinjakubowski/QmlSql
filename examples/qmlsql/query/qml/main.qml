@@ -49,9 +49,11 @@ Window {
             width: parent.width / 1.07
             placeholderText: query.queryString
             anchors.horizontalCenter: parent.horizontalCenter
-            onAccepted: {
-                   query.queryString = text
-                   query.exec()
+            onAccepted: run()
+
+            function run() {
+                query.queryString = text
+                query.exec()
             }
 
         }
@@ -59,10 +61,7 @@ Window {
             text:qsTr("Run Query")
             width: parent.width / 1.07
             anchors.horizontalCenter: parent.horizontalCenter
-            onClicked:{
-                query.queryString = quryString.text
-                query.exec()
-            }
+            onClicked: quryString.run()
         }
 
 
