@@ -1,3 +1,25 @@
+/* In order for this example to work, you will need a database.
+   You can create one fitting this example by running the following SQL script on a MySQL instance:
+
+    CREATE USER qmlsql IDENTIFIED BY 'qmlsql';
+
+    CREATE DATABASE qmlsql;
+
+    GRANT ALL PRIVILEGES ON qmlsql.* TO qmlsql;
+
+    USE qmlsql;
+
+    CREATE TABLE qmlsql
+    (
+        id int primary key auto_increment,
+        name text,
+        age int
+    );
+
+    INSERT INTO qmlsql (name, age)
+    VALUES ('John', 2), ('Martin', 35), ('Maddie', 33), ('Peter', 0);
+*/
+
 import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
@@ -63,7 +85,7 @@ Window {
             // Set the connection name to the qml-sql-database
             connectionName: "mainConnection"
             // Use a query string to fill the model
-            queryString: "SELECT * FROM MOCK_DATA"
+            queryString: "SELECT * FROM qmlsql"
             onDone: {
                 queryOut.text = lastQueryOutPut
             }
@@ -83,13 +105,13 @@ Window {
             source: "127.0.0.1"
 
             // set the database Name
-            databaseName: "mock_data"
+            databaseName: "qmlsql"
 
             // set the User of the connection
-            user: ""
+            user: "qmlsql"
 
             // set the password for that User
-            password: ""
+            password: "qmlsql"
 
             // set the port for the connection
             port: 3306
