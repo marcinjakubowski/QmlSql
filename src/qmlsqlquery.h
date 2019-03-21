@@ -17,7 +17,7 @@ class QmlSqlQuery : public QObject
 
     Q_PROPERTY(QString queryString READ queryString WRITE setQueryString NOTIFY queryStringChanged)
     Q_PROPERTY(QString lastQuery READ lastQuery WRITE setLastQuery NOTIFY lastQueryChanged)
-    Q_PROPERTY(QString lastQueryOutPut READ lastQueryOutPut WRITE setLastQueryOutPut NOTIFY lastQueryOutPutChanged)
+    Q_PROPERTY(QString lastQueryOutput READ lastQueryOutput WRITE setLastQueryOutput NOTIFY lastQueryOutputChanged)
     Q_PROPERTY(QString connectionName READ connectionName WRITE setConnectionName NOTIFY connectionNameChanged)
     Q_PROPERTY(QString errorString READ errorString WRITE setErrorString NOTIFY errorStringChanged)
     Q_PROPERTY(int rowsAffected READ rowsAffected WRITE setRowsAffected NOTIFY rowsAffectedChanged)
@@ -34,8 +34,8 @@ public:
     QString lastQuery() const;
     void setLastQuery(const QString& lastQuery);
 
-    QString lastQueryOutPut() const;
-    void setLastQueryOutPut(const QString& lastQueryOutPut);
+    QString lastQueryOutput() const;
+    void setLastQueryOutput(const QString& lastQueryOutput);
 
     QString connectionName() const;
     void setConnectionName(const QString& connectionName);
@@ -50,7 +50,7 @@ signals:
     void rowsAffectedChanged();
     void queryStringChanged();
     void lastQueryChanged();
-    void lastQueryOutPutChanged();
+    void lastQueryOutputChanged();
     void connectionNameChanged();
     void errorStringChanged();
     void error(QString);
@@ -63,7 +63,7 @@ private:
     int m_rowsAffected;
     QString m_queryString;
     QString m_lastQuery;
-    QString m_lastQueryOutPut;
+    QString m_lastQueryOutput;
     QString m_connectionName;
     QString m_errorString;
 };

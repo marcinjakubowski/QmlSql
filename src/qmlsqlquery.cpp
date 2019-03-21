@@ -91,15 +91,15 @@ void QmlSqlQuery::setLastQuery(const QString& lastQuery) {
     Returns the text from the last query that was ran. If there was a error one can use errorString to retrive more information about the error,
 \sa errorString
 */
-QString QmlSqlQuery::lastQueryOutPut() const {
-    return m_lastQueryOutPut;
+QString QmlSqlQuery::lastQueryOutput() const {
+    return m_lastQueryOutput;
 }
 
-void QmlSqlQuery::setLastQueryOutPut(const QString& lastQueryOutPut) {
-    if (m_lastQueryOutPut == lastQueryOutPut)
+void QmlSqlQuery::setLastQueryOutput(const QString& lastQueryOutput) {
+    if (m_lastQueryOutput == lastQueryOutput)
         return;
-    m_lastQueryOutPut = lastQueryOutPut ;
-    emit lastQueryOutPutChanged();
+    m_lastQueryOutput = lastQueryOutput ;
+    emit lastQueryOutputChanged();
 }
 
 /*!
@@ -223,11 +223,12 @@ void QmlSqlQuery::execWithQuery(const QString& connectionName, const QString& qu
             }
             output.append('\n');
         }
-        setLastQueryOutPut(output);
+        setLastQueryOutput(output);
     }
     else {
         setRowsAffected(db_query.numRowsAffected());
     }
+    setErrorString(QString());
     emit done();
 }
 

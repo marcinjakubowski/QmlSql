@@ -75,6 +75,8 @@ Window {
         TextArea{
             id: queryOut
             width: parent.width / 1.07
+            textFormat: Text.AutoText
+            text: query.errorString.length === 0 ? query.lastQueryOutput : "<p style='color:red'>" + query.errorString + "</p>"
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height - (quryString.height *4.3)
         }
@@ -86,14 +88,6 @@ Window {
             connectionName: "mainConnection"
             // Use a query string to fill the model
             queryString: "SELECT * FROM qmlsql"
-            onDone: {
-                queryOut.text = lastQueryOutPut
-            }
-            onErrorStringChanged: {
-                queryOut.textFormat = Text.RichText
-                queryOut.text = "<p style='color:red'>" +errorString +"</p>"
-                queryOut.textFormat = Text.AutoText
-            }
         }
 
 
