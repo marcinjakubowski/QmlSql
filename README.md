@@ -1,3 +1,5 @@
+# THIS FORK IS NOT COMPATIBLE WITH THE ORIGINAL
+
 ## QmlSql
 
   QmlSql comes with some helper Objects to connect to Databases Run Queries against SQL.
