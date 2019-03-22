@@ -37,6 +37,7 @@ Window {
         anchors.margins: 20
         anchors.centerIn: parent
         spacing: 2
+        id: lay
 
         Label{
             font.bold: true
@@ -57,11 +58,20 @@ Window {
             }
 
         }
+
+
+
         Button{
             text:qsTr("Run Query")
-            width: parent.width / 1.07
+            width: parent.width * 0.9
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: quryString.run()
+        }
+        Button {
+            text: "Switch connection"
+            width: parent.width * 0.1
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: query.database = (query.database == mainConnection ? secondConnection : mainConnection)
         }
 
 
@@ -84,9 +94,41 @@ Window {
         QmlSqlQuery{
             id: query
             // Set the connection name to the qml-sql-database
-            connectionName: "mainConnection"
+            database: mainConnection
             // Use a query string to fill the model
             queryString: "SELECT * FROM qmlsql"
+        }
+
+        QmlSqlDatabase{
+            id: secondConnection
+            connectionName: "secondConnection"
+
+            // Set the source of the database
+            source: "127.0.0.1"
+
+            // set the database Name
+            databaseName: "qmlsql2"
+
+            // set the User of the connection
+            user: "qmlsql"
+
+            // set the password for that User
+            password: "qmlsql"
+
+            // set the port for the connection
+            port: 3306
+
+            // set the driver to use
+            databaseDriver: QmlSqlDatabase.MySql
+
+            // add the database to memory so we can call over and over again
+            Component.onCompleted: addDataBase()
+
+            onErrorStringChanged: {
+                queryOut.textFormat = Text.RichText
+                queryOut.text = "<p style='color:red'>" +errorString +"</p>"
+                queryOut.textFormat = Text.AutoText
+            }
         }
 
 
@@ -114,11 +156,6 @@ Window {
 
             // add the database to memory so we can call over and over again
             Component.onCompleted: addDataBase()
-
-
-            // Run the query to fill the model
-            // ! make sure that you are connected first !
-            onConnectionOpened: query.exec()
 
             onErrorStringChanged: {
                 queryOut.textFormat = Text.RichText

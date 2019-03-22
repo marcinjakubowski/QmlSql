@@ -1,6 +1,7 @@
 #include "qmlsqlquery.h"
 #include <QStringBuilder>
 
+#include "qmlsqldatabase.h"
 
 
 /*!
@@ -35,13 +36,33 @@ Otherwise, the behavior of \c QmlSqlQuery is undefined.
 */
 
 QmlSqlQuery::QmlSqlQuery(QObject *parent)
-    : QObject(parent)
+    : QObject(parent), m_database(nullptr)
 {
     connect(this, SIGNAL(error(QString)), this, SLOT(handleError(QString)));
 }
 
 int QmlSqlQuery::rowsAffected() const {
     return m_rowsAffected;
+}
+
+QmlSqlDatabase* QmlSqlQuery::database() const {
+    return m_database;
+}
+
+void QmlSqlQuery::setDatabase(QmlSqlDatabase *database) {
+    if (database == m_database)
+        return;
+
+    if (m_database != nullptr)
+        disconnect(m_database, SIGNAL(isConnectedChanged()), this, SLOT(exec()));
+
+    m_database = database;
+    connect(m_database, SIGNAL(isConnectedChanged()), this, SLOT(exec()));
+
+    if (m_database->isConnected())
+        exec();
+
+    emit databaseChanged();
 }
 
 void QmlSqlQuery::setRowsAffected(int rowsAffected) {
@@ -103,21 +124,6 @@ void QmlSqlQuery::setLastQueryOutput(const QString& lastQueryOutput) {
 }
 
 /*!
-  \qmlproperty string QQmlSqlQuery::connectionName
-Sets up the connectionName to match that of the QmlSqlDatabase. It is highly suggested that one uses the connection name.
- */
-QString QmlSqlQuery::connectionName() const {
-    return m_connectionName;
-}
-
-void QmlSqlQuery::setConnectionName(const QString& connectionName) {
-    if (m_connectionName == connectionName)
-        return;
-    m_connectionName =  connectionName;
-    emit connectionNameChanged();
-}
-
-/*!
   \qmlproperty string QQmlSqlQuery::errorString
 Returns error information about the last error (if any) that occurred with this query.
  */
@@ -140,7 +146,7 @@ void QmlSqlQuery::setErrorString(const QString& errorString) {
   \b{Note} That the last error for this query is not reset when exec() is called.
  */
 void QmlSqlQuery::exec() {
-    execWithQuery(m_connectionName, m_queryString);
+    execWithQuery(m_database->connectionName(), m_queryString);
 }
 
 /*!

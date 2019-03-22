@@ -68,14 +68,13 @@ Some of the things are close open check validation of Database types ect.
 
 
 QmlSqlDatabase::QmlSqlDatabase(QObject *parent)
-    : QObject(parent)
+    : QObject(parent), m_isConnected(false)
 {
-        setDatabaseDriverList();
-        connect(this, SIGNAL(error(QString)), this, SLOT(handleError(QString)));
-        connect(this, SIGNAL(connectionOpened(QSqlDatabase,QString)), this, SLOT(handleOpened(QSqlDatabase,QString)));
-        connect(this, SIGNAL(closeRequested(CloseReason,QString)), this, SLOT(handleCloseRequested(CloseReason,QString)));
-        connect(this, SIGNAL(sqlError(QSqlError)),this, SLOT(handleSqlError(QSqlError)));
-
+    setDatabaseDriverList();
+    connect(this, SIGNAL(error(QString)), this, SLOT(handleError(QString)));
+    connect(this, SIGNAL(connectionOpened(QSqlDatabase,QString)), this, SLOT(handleOpened(QSqlDatabase,QString)));
+    connect(this, SIGNAL(closeRequested(CloseReason,QString)), this, SLOT(handleCloseRequested(CloseReason,QString)));
+    connect(this, SIGNAL(sqlError(QSqlError)),this, SLOT(handleSqlError(QSqlError)));
 }
 
 /*!
@@ -200,7 +199,7 @@ QString QmlSqlDatabase::databaseName() const {
     return m_dbName;
 }
 
-void QmlSqlDatabase::setdatabaseName(const QString& databaseName) {
+void QmlSqlDatabase::setDatabaseName(const QString& databaseName) {
     if (m_dbName == databaseName)
         return;
 
@@ -317,11 +316,17 @@ void QmlSqlDatabase::addDataBase() {
     db.setPort(m_port);
     if (!db.open()) {
         sqlError(db.lastError());
-        closeRequested(Error,m_connectionName);
+        closeRequested(Error, m_connectionName);
     }
     else {
-        connectionOpened(db , m_connectionName);
+        connectionOpened(db, m_connectionName);
+        m_isConnected = true;
+        isConnectedChanged();
     }
+}
+
+bool QmlSqlDatabase::isConnected() const {
+    return m_isConnected;
 }
 
 /*!

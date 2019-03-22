@@ -11,9 +11,10 @@ class QmlSqlDatabase : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged )
-    Q_PROPERTY(QString databaseName READ databaseName WRITE setdatabaseName NOTIFY databaseNameChanged)
+    Q_PROPERTY(QString databaseName READ databaseName WRITE setDatabaseName NOTIFY databaseNameChanged)
     Q_PROPERTY(QString user READ user WRITE setUser NOTIFY userChanged)
     Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
+    Q_PROPERTY(bool isConnected READ isConnected NOTIFY isConnectedChanged)
     Q_PROPERTY(int port READ port WRITE setPort NOTIFY portChanged)
     Q_PROPERTY(QString connectionName READ connectionName WRITE setConnectionName NOTIFY connectionNameChanged)
     Q_PROPERTY(QString  errorString READ errorString NOTIFY errorStringChanged)
@@ -39,13 +40,15 @@ public:
     void setSource(const QString& source);
 
     QString databaseName() const;
-    void setdatabaseName(const QString& databaseName);
+    void setDatabaseName(const QString& databaseName);
 
     QString user() const;
     void setUser(const QString& user);
 
     QString password() const;
     void setPassword(const QString& password);
+
+    bool isConnected() const;
 
     int port() const;
     void setPort(int port);
@@ -68,6 +71,7 @@ signals:
     void connectionNameChanged();
     void databaseDriverChanged();
     void databaseDriverListChanged();
+    void isConnectedChanged();
     void errorStringChanged();
 
     //INTERNAL
@@ -84,6 +88,7 @@ public slots:
     void handleSqlError(const QSqlError& err);
 
 private:
+    bool m_isConnected;
     QSqlDatabase db;
     QString m_source;
     QString m_dbName;
