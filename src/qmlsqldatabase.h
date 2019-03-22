@@ -5,16 +5,17 @@
 #include <QSqlError>
 #include <QVariant>
 #include <QDebug>
+#include <QQmlParserStatus>
 
-class QmlSqlDatabase : public QObject
+class QmlSqlDatabase : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
+    Q_INTERFACES(QQmlParserStatus)
 
     Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged )
     Q_PROPERTY(QString databaseName READ databaseName WRITE setDatabaseName NOTIFY databaseNameChanged)
     Q_PROPERTY(QString user READ user WRITE setUser NOTIFY userChanged)
     Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
-    Q_PROPERTY(bool isConnected READ isConnected NOTIFY isConnectedChanged)
     Q_PROPERTY(int port READ port WRITE setPort NOTIFY portChanged)
     Q_PROPERTY(QString connectionName READ connectionName WRITE setConnectionName NOTIFY connectionNameChanged)
     Q_PROPERTY(QString  errorString READ errorString NOTIFY errorStringChanged)
@@ -56,11 +57,15 @@ public:
     QString connectionName() const;
     void setConnectionName(const QString& connectionName);
 
-    Q_INVOKABLE void addDataBase();
+
     Q_INVOKABLE QStringList connectionNames();
     Q_INVOKABLE void removeDatabase(const QString& connectionName);
     Q_INVOKABLE void closeAllConnections();
     Q_INVOKABLE QStringList tables(const QString& connectionName,const TableType& tableType);
+
+    // QQmlParserStatus interface
+    void classBegin() {}
+    void componentComplete();
 
 signals:
     void sourceChanged();
@@ -71,8 +76,10 @@ signals:
     void connectionNameChanged();
     void databaseDriverChanged();
     void databaseDriverListChanged();
-    void isConnectedChanged();
     void errorStringChanged();
+
+    void connected();
+    void disconnected();
 
     //INTERNAL
     void error(QString);
@@ -82,6 +89,8 @@ signals:
     void sqlError(QSqlError);
 
 public slots:
+    void open();
+    void close();
     void handleError(const QString& err);
     void handleOpened(QSqlDatabase database, const QString& connectionName);
     void handleCloseRequested(const CloseReason& reason, const QString& connectionName);
@@ -105,5 +114,7 @@ private:
 
     QSql::TableType setTableType(const QmlSqlDatabase::TableType& type);
     QString closeReasonToString(const CloseReason& cR);
+
+
 };
 #endif //  // QMLSQLDATABASE

@@ -54,10 +54,10 @@ void QmlSqlQuery::setDatabase(QmlSqlDatabase *database) {
         return;
 
     if (m_database != nullptr)
-        disconnect(m_database, SIGNAL(isConnectedChanged()), this, SLOT(exec()));
+        disconnect(m_database, SIGNAL(connected()), this, SLOT(exec()));
 
     m_database = database;
-    connect(m_database, SIGNAL(isConnectedChanged()), this, SLOT(exec()));
+    connect(m_database, SIGNAL(connected()), this, SLOT(exec()));
 
     if (m_database->isConnected())
         exec();

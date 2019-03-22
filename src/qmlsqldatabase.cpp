@@ -305,10 +305,8 @@ the one replaced.
 
 
 */
-void QmlSqlDatabase::addDataBase() {
+void QmlSqlDatabase::open() {
     db = QSqlDatabase::addDatabase(m_databaseDriverString, m_connectionName);
-    //FIXME Stop this recration and make a pointer that adppends to.
-    // db.close();
     db.setHostName(m_source);
     db.setDatabaseName(m_dbName);
     db.setUserName(m_user);
@@ -317,12 +315,20 @@ void QmlSqlDatabase::addDataBase() {
     if (!db.open()) {
         sqlError(db.lastError());
         closeRequested(Error, m_connectionName);
+        disconnected();
     }
     else {
         connectionOpened(db, m_connectionName);
         m_isConnected = true;
-        isConnectedChanged();
+        connected();
     }
+}
+
+void QmlSqlDatabase::close() {
+    db.close();
+    QSqlDatabase::removeDatabase(m_connectionName);
+    m_isConnected = false;
+    disconnected();
 }
 
 bool QmlSqlDatabase::isConnected() const {
@@ -389,6 +395,10 @@ QStringList QmlSqlDatabase::tables(const QString& connectionName,const TableType
     }
 
     return li;
+}
+
+void QmlSqlDatabase::componentComplete() {
+    open();
 }
 
 void QmlSqlDatabase::handleError(const QString& err) {

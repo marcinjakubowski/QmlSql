@@ -87,12 +87,9 @@ Window {
         // set the driver to use
         databaseDriver: QmlSqlDatabase.MySql
 
-        // add the database to memory so we can call over and over again
-        Component.onCompleted: addDataBase()
-
 
         // Run the query to fill the model
         // ! make sure that you are connected first !
-        onConnectionOpened: queryModel.exec()
+        onConnected: queryModel.exec()
     }
 }
