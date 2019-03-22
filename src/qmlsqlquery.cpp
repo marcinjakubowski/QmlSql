@@ -223,16 +223,21 @@ void QmlSqlQuery::execWithQuery(const QString& connectionName, const QString& qu
         QString output;
         QSqlRecord rec = db_query.record();
         const int columnCount = rec.count() - 1 ;
+        int recordCount = 0;
         while (db_query.next()) {
             for (int i=0; i<=columnCount; i++) {
                 output.append(db_query.value(i).toString() % '\t');
             }
             output.append('\n');
+            recordCount++;
         }
         setLastQueryOutput(output);
+        setRowsAffected(recordCount);
     }
     else {
-        setRowsAffected(db_query.numRowsAffected());
+        const int recordCount = db_query.numRowsAffected();
+        setRowsAffected(recordCount);
+        setLastQueryOutput(tr("(%n row(s) affected)", "", recordCount));
     }
     setErrorString(QString());
     emit done();
