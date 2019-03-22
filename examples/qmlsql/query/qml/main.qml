@@ -114,9 +114,6 @@ Window {
             // set the driver to use
             databaseDriver: QmlSqlDatabase.MySql
 
-            // add the database to memory so we can call over and over again
-            Component.onCompleted: addDataBase()
-
             onErrorStringChanged: {
                 queryOut.textFormat = Text.RichText
                 queryOut.text = "<p style='color:red'>" +errorString +"</p>"
