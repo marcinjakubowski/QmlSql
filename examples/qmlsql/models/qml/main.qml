@@ -57,15 +57,13 @@ Window {
     QmlSqlQueryModel{
         id: queryModel
         // Set the connection name to the QmlSqlDatabase
-        connectionName: "mainConnection"
+        database: mainConnection
         // Use a query string to fill the model
         queryString: "SELECT * FROM qmlsql"
     }
 
 
     QmlSqlDatabase{
-
-
         id: mainConnection
         connectionName: "mainConnection"
 
@@ -86,10 +84,5 @@ Window {
 
         // set the driver to use
         databaseDriver: QmlSqlDatabase.MySql
-
-
-        // Run the query to fill the model
-        // ! make sure that you are connected first !
-        onConnected: queryModel.exec()
     }
 }

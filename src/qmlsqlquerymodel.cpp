@@ -1,4 +1,5 @@
 #include "qmlsqlquerymodel.h"
+#include "qmlsqldatabase.h"
 
 
 
@@ -44,21 +45,6 @@ QmlSqlQueryModel::QmlSqlQueryModel(QObject *parent) :
 }
 
 /*!
-  \qmlproperty string QmlSqlQueryModel::connectionName
-   Set the connectionName to connectionName. This is used on a open QmlSqlDatabase,
- */
-QString QmlSqlQueryModel::connectionName() const {
-    return m_connectionName;
-}
-
-void QmlSqlQueryModel::setConnectionName(const QString& connectionName) {
-    if (m_connectionName == connectionName)
-        return;
-    m_connectionName = connectionName ;
-    emit connectionNameChanged();
-}
-
-/*!
   \qmlproperty string QmlSqlQueryModel::queryString
   Resets the model and sets the data provider to be the given query.
 
@@ -75,6 +61,26 @@ void QmlSqlQueryModel::setQueryString(const QString& queryString) {
         return;
     m_queryString = queryString ;
     emit queryStringChanged();
+}
+
+QmlSqlDatabase* QmlSqlQueryModel::database() const {
+    return m_database;
+}
+
+void QmlSqlQueryModel::setDatabase(QmlSqlDatabase *database) {
+    if (database == m_database)
+        return;
+
+    if (m_database != nullptr)
+        disconnect(m_database, SIGNAL(connected()), this, SLOT(exec()));
+
+    m_database = database;
+    connect(m_database, SIGNAL(connected()), this, SLOT(exec()));
+
+    if (m_database->isConnected())
+        exec();
+
+    emit databaseChanged();
 }
 
 
@@ -110,7 +116,7 @@ void QmlSqlQueryModel::setReadOnly(bool readOnly) {
  \sa queryString , errorString
 */
 void QmlSqlQueryModel::exec() {
-    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    QSqlDatabase db = QSqlDatabase::database(m_database->connectionName());
     QSqlQueryModel::setQuery(m_queryString, db);
 
     if (this->lastError().isValid()) {
@@ -155,7 +161,7 @@ QString QmlSqlQueryModel::parseError(const QSqlError::ErrorType& mError) {
     return QString();
 }
 
-void QmlSqlQueryModel::handelErrorString(const QString& errorString) {
+void QmlSqlQueryModel::handleErrorString(const QString& errorString) {
     if(m_error == errorString)
         return;
     m_error = errorString;

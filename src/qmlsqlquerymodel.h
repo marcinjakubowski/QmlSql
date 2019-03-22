@@ -11,11 +11,13 @@
 #include <QStringList>
 
 
+class QmlSqlDatabase;
+
 class QmlSqlQueryModel : public QSqlQueryModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString connectionName READ connectionName WRITE setConnectionName NOTIFY connectionNameChanged)
+    Q_PROPERTY(QmlSqlDatabase* database READ database WRITE setDatabase NOTIFY databaseChanged)
     Q_PROPERTY(QString queryString READ queryString WRITE setQueryString NOTIFY queryStringChanged)
     Q_PROPERTY(QStringList rolesList READ rolesList  NOTIFY rolesListChanged)
     Q_PROPERTY(QString errorString READ errorString NOTIFY errorStringChanged)
@@ -24,11 +26,12 @@ class QmlSqlQueryModel : public QSqlQueryModel
 
 public:
     explicit QmlSqlQueryModel(QObject *parent = nullptr);
-    QString connectionName() const;
-    void setConnectionName(const QString& connectionName);
 
     QString queryString() const;
     void setQueryString(const QString& queryString);
+
+    QmlSqlDatabase* database() const;
+    void setDatabase(QmlSqlDatabase* database);
 
     QStringList rolesList() const;
 
@@ -37,16 +40,16 @@ public:
     bool readOnly() const;
     void setReadOnly(bool readOnly);
 
-
-     Q_INVOKABLE void exec();
      Q_INVOKABLE void clearModel();
-     QVariant  data(const QModelIndex& index, int role)const;
+     QVariant data(const QModelIndex& index, int role) const;
      QHash<int, QByteArray>roleNames() const;
      QString parseError(const QSqlError::ErrorType& mError);
 
+public slots:
+     void exec();
+
 signals:
-     void compleated();
-    void connectionNameChanged();
+    void databaseChanged();
     void queryStringChanged();
     void rolesListChanged();
     void error(const QString err);
@@ -54,10 +57,10 @@ signals:
     void readOnlyChanged();
 
 protected slots:
-    void handelErrorString(const QString& errorString);
+    void handleErrorString(const QString& errorString);
 
 private:
-    QString m_connectionName;
+    QmlSqlDatabase* m_database;
     QString m_queryString;
     QStringList m_roleList;
     QString m_error;
